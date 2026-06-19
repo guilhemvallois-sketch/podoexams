@@ -8,260 +8,301 @@
 <meta name="apple-mobile-web-app-title" content="PodoExamen">
 <meta name="theme-color" content="#1D9E75">
 <title>PodoExamen</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI2IiBmaWxsPSIjMUQ5RTc1Ii8+PHRleHQgeD0iNjAiIHk9Ijc4IiBmb250LXNpemU9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXBwbGUgQ29sb3IgRW1vamksIHNlcmlmIj7wn6eBPC90ZXh0Pjwvc3ZnPg==">
-<style>
-  html { -webkit-text-size-adjust: 100%; }
-</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
-:root {
-  --bg: #f5f5f4; --surface: #ffffff; --surface2: #f4f4f3; --border: rgba(0,0,0,0.12);
-  --border2: rgba(0,0,0,0.2); --text: #1a1a1a; --text2: #666; --text3: #999;
-  --teal: #1D9E75; --teal-light: #E1F5EE; --teal-mid: #0F6E56; --teal-pale: #9FE1CB;
-  --red: #E24B4A; --red-light: #FCEBEB; --blue-light: #E6F1FB; --blue: #185FA5;
-  --radius: 10px; --radius-sm: 7px;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1a1a1a; --surface: #252525; --surface2: #2e2e2e; --border: rgba(255,255,255,0.1);
-    --border2: rgba(255,255,255,0.2); --text: #f0f0f0; --text2: #aaa; --text3: #666;
-    --teal-light: #0a3d2e; --teal-pale: #0f5c42; --red-light: #3a1515; --blue-light: #0a1e35;
-  }
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+:root{--bg:#f5f5f4;--surface:#fff;--surface2:#f4f4f3;--border:rgba(0,0,0,.12);--border2:rgba(0,0,0,.2);--text:#1a1a1a;--text2:#666;--text3:#999;--teal:#1D9E75;--teal-light:#E1F5EE;--teal-mid:#0F6E56;--teal-pale:#9FE1CB;--red:#E24B4A;--red-light:#FCEBEB;--blue-light:#E6F1FB;--blue:#185FA5;--orange:#E87A1D;--orange-light:#FFF3E0;--radius:10px;--radius-sm:7px;}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1a1a;--surface:#252525;--surface2:#2e2e2e;--border:rgba(255,255,255,.1);--border2:rgba(255,255,255,.2);--text:#f0f0f0;--text2:#aaa;--text3:#666;--teal-light:#0a3d2e;--teal-pale:#0f5c42;--red-light:#3a1515;--blue-light:#0a1e35;--orange-light:#2a1800;}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.topbar{background:var(--surface);border-bottom:.5px solid var(--border);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;gap:8px;}
+.logo{font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.logo i{color:var(--teal);font-size:20px;}
+.tabs{display:flex;gap:3px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:6px 10px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.tab.active{background:var(--teal);color:#fff;border-color:var(--teal);font-weight:500;}
+.tab.active.sport{background:var(--orange);border-color:var(--orange);}
+.tab.active.concl{background:#7C3AED;border-color:#7C3AED;}
+.tbtn{padding:6px 10px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.tbtn.green{background:var(--teal);color:#fff;border-color:var(--teal);}
+.main{padding:12px;max-width:900px;margin:0 auto;}
+.screen{display:none;}.screen.active{display:block;}
+.card{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:13px;margin-bottom:10px;}
+.card-hd{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.card-hd i{font-size:15px;color:var(--teal);}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.fg{display:flex;flex-direction:column;gap:3px;}.fg.full{grid-column:1/-1;}
+.flbl{font-size:12px;color:var(--text2);}
+.finput{padding:8px 10px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;width:100%;}
+.finput:focus{outline:none;border-color:var(--teal);}
+textarea.finput{resize:vertical;min-height:65px;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:5px;}
+.ci{display:flex;align-items:center;gap:7px;padding:7px 9px;border-radius:var(--radius-sm);border:.5px solid var(--border);background:var(--surface2);cursor:pointer;user-select:none;}
+.ci.chk{background:var(--teal-light);border-color:var(--teal);}
+.ci.chk .cb{background:var(--teal);border-color:var(--teal);}
+.ci.chk .cb i{display:block;}
+.cb{width:17px;height:17px;border-radius:3px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);}
+.cb i{display:none;color:#fff;font-size:11px;}
+.clbl{font-size:12px;color:var(--text);line-height:1.3;}
+.rg{display:flex;gap:5px;flex-wrap:wrap;}
+.ri{padding:6px 11px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);font-size:13px;cursor:pointer;color:var(--text2);user-select:none;}
+.ri.sel{background:var(--teal);color:#fff;border-color:var(--teal);font-weight:500;}
+.sfield{width:100%;padding:8px 10px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;}
+.savebtn{width:100%;padding:12px;border-radius:var(--radius);background:var(--teal);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:7px;}
+.pclist{display:flex;flex-direction:column;gap:7px;}
+.pc{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.pav{width:40px;height:40px;border-radius:50%;background:var(--teal-light);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.pi{flex:1;min-width:0;}
+.pn{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pm{font-size:12px;color:var(--text2);margin-top:2px;}
+.pacts{display:flex;gap:5px;}
+.ib{width:30px;height:30px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:15px;}
+.ib.danger:active{background:var(--red-light);color:var(--red);}
+.empty{text-align:center;padding:36px 16px;color:var(--text2);}
+.empty i{font-size:38px;color:var(--border2);margin-bottom:10px;display:block;}
+.empty p{font-size:14px;line-height:1.6;}
+.badge{padding:2px 7px;border-radius:20px;font-size:11px;font-weight:500;background:var(--teal-light);color:var(--teal-mid);}
+.badge.gray{background:var(--surface2);color:var(--text2);}
+.badge.blue{background:var(--blue-light);color:var(--blue);}
+.esec{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;}
+.eshd{padding:11px 13px;display:flex;align-items:center;gap:7px;background:var(--surface2);border-bottom:.5px solid var(--border);cursor:pointer;}
+.estitle{font-size:13px;font-weight:500;color:var(--text);flex:1;}
+.esbody{padding:12px 13px;}
+.eir{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+.eiinput{flex:1;padding:7px 10px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:inherit;}
+.eiinput:focus{outline:none;border-color:var(--teal);}
+.tsel{padding:7px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text2);font-size:12px;font-family:inherit;}
+.addbtn{width:100%;padding:7px;border:1px dashed var(--border2);border-radius:var(--radius-sm);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px;}
+.secadd{width:100%;padding:10px;border:1.5px dashed var(--teal-pale);border-radius:var(--radius);background:var(--teal-light);color:var(--teal-mid);font-size:14px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:4px;}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;padding:9px 18px;border-radius:var(--radius);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
+.moverlay.open{display:flex;}
+.modal{background:var(--surface);border-radius:var(--radius);padding:20px;width:100%;max-width:310px;border:.5px solid var(--border2);}
+.modal h3{font-size:15px;font-weight:600;margin-bottom:7px;}
+.modal p{font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5;}
+.macts{display:flex;gap:7px;justify-content:flex-end;}
+.bghost{padding:7px 13px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:transparent;cursor:pointer;font-size:13px;font-family:inherit;color:var(--text2);}
+.bdanger{padding:7px 13px;border-radius:var(--radius-sm);border:none;background:var(--red);color:#fff;cursor:pointer;font-size:13px;font-family:inherit;}
+.nota{font-size:12px;color:var(--text2);font-style:italic;padding:7px 10px;background:var(--surface2);border-radius:var(--radius-sm);border-left:3px solid var(--teal);}
+.srch-wrap{position:relative;margin-bottom:10px;}
+.srch-wrap i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;pointer-events:none;}
+.srch{width:100%;padding:9px 12px 9px 34px;border-radius:var(--radius);border:.5px solid var(--border2);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit;}
+.srch:focus{outline:none;border-color:var(--teal);}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.hdr-title{font-size:17px;font-weight:600;color:var(--text);}
+.hcount{font-size:12px;color:var(--text2);margin-bottom:8px;}
+.pdetail-nav{display:flex;align-items:center;gap:7px;margin-bottom:10px;flex-wrap:wrap;}
+.pdetail-back{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--teal);cursor:pointer;}
+.pdetail-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap;}
+.pdetail-tab{padding:6px 13px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;}
+.pdetail-tab.active{background:var(--teal);color:#fff;border-color:var(--teal);}
+.hist-list{display:flex;flex-direction:column;gap:8px;}
+.hist-item{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.hist-hd{padding:11px 13px;display:flex;align-items:center;gap:8px;cursor:pointer;}
+.hist-date{font-size:14px;font-weight:500;color:var(--text);flex:1;}
+.hist-body{padding:12px 13px;border-top:.5px solid var(--border);}
+.hfield{margin-bottom:7px;}
+.hflbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;}
+.hfval{font-size:13px;color:var(--text);line-height:1.5;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{padding:2px 7px;border-radius:20px;font-size:12px;background:var(--teal-light);color:var(--teal-mid);}
+.collapse-icon{transition:transform .2s;font-size:13px;color:var(--text3);}
+.collapse-icon.open{transform:rotate(180deg);}
+.sect-label{font-size:12px;font-weight:600;color:var(--teal);margin:10px 0 5px;}
+/* Posto */
+.posto-section{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:13px;margin-bottom:10px;}
+.posto-sec-title{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.posto-sec-title i{font-size:15px;color:var(--teal);}
+.posto-subsection{font-size:11px;font-weight:600;color:var(--teal);margin:10px 0 5px;text-transform:uppercase;letter-spacing:.04em;}
+.test-row{display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border);}
+.test-row:last-child{border-bottom:none;}
+.test-name{font-size:13px;color:var(--text);font-weight:500;padding-top:4px;}
+.test-name small{display:block;font-size:11px;color:var(--text3);font-weight:400;margin-top:2px;line-height:1.3;}
+.test-side{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:60px;}
+.side-lbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;}
+.side-btns{display:flex;gap:3px;}
+.sbtn{width:28px;height:28px;border-radius:6px;border:.5px solid var(--border2);background:var(--surface2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;font-family:inherit;}
+.sbtn.pos{background:var(--red-light);border-color:var(--red);color:var(--red);}
+.sbtn.neg{background:var(--teal-light);border-color:var(--teal);color:var(--teal);}
+.test-note-wrap{grid-column:1/-1;padding-bottom:4px;}
+.test-note{width:100%;padding:5px 8px;border-radius:var(--radius-sm);border:.5px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;font-family:inherit;resize:none;}
+.test-note:focus{outline:none;border-color:var(--teal);}
+.legend-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text2);}
+.leg-dot{width:13px;height:13px;border-radius:3px;border:.5px solid;}
+/* Sport */
+.sport-section{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:13px;margin-bottom:10px;}
+.sport-sec-title{font-size:11px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.sport-subsection{font-size:11px;font-weight:600;color:var(--orange);margin:10px 0 5px;text-transform:uppercase;letter-spacing:.04em;}
+.score-row{display:grid;grid-template-columns:1fr auto;align-items:start;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border);}
+.score-row:last-child{border-bottom:none;}
+.sport-test-row{display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border);}
+.sport-test-row:last-child{border-bottom:none;}
+.score-input{width:70px;padding:7px 6px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;text-align:center;}
+.score-unit{font-size:11px;color:var(--text3);margin-top:2px;text-align:center;}
+.result-select{padding:7px 8px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:inherit;}
+.result-select.ok{border-color:var(--teal);color:var(--teal);}
+.result-select.nok{border-color:var(--red);color:var(--red);}
+.result-select.lim{border-color:var(--orange);color:var(--orange);}
+/* Conclusion */
+.concl-block{background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius);padding:13px;margin-bottom:10px;}
+.concl-title{font-size:13px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.concl-title i{font-size:17px;}
+.concl-item{display:flex;align-items:baseline;gap:7px;padding:5px 0;border-bottom:.5px solid var(--border);font-size:13px;}
+.concl-item:last-child{border-bottom:none;}
+.concl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.concl-zone{font-size:11px;color:var(--text3);min-width:85px;flex-shrink:0;}
+.concl-val{color:var(--text);flex:1;}
+.concl-side{font-size:11px;font-weight:600;padding:1px 6px;border-radius:10px;background:var(--surface2);color:var(--text2);}
+.concl-empty{text-align:center;padding:14px;color:var(--text3);font-size:13px;font-style:italic;}
+.pdf-btn{width:100%;padding:12px;border-radius:var(--radius);background:#2563EB;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:7px;}
+.note-textarea{width:100%;padding:9px 10px;border-radius:var(--radius-sm);border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:inherit;resize:vertical;min-height:80px;}
+.note-textarea:focus{outline:none;border-color:var(--teal);}
+@media(max-width:480px){.pgrid{grid-template-columns:1fr;}.logo span{display:none;}}
 
-.topbar { background: var(--surface); border-bottom: .5px solid var(--border); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-.logo { font-size: 16px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 7px; }
-.logo i { color: var(--teal); font-size: 22px; }
-.tabs { display: flex; gap: 3px; }
-.tab { padding: 7px 11px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 4px; transition: all .15s; }
-.tab.active { background: var(--teal); color: #fff; border-color: var(--teal); font-weight: 500; }
-.tbtn { padding: 7px 11px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; }
-.tbtn.green { background: var(--teal); color: #fff; border-color: var(--teal); }
-.tbtn.green:hover { background: var(--teal-mid); }
 
-.main { padding: 14px; max-width: 900px; margin: 0 auto; }
-.screen { display: none; } .screen.active { display: block; }
-
-.card { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
-.card-hd { font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-.card-hd i { font-size: 16px; color: var(--teal); }
-
-.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.fg { display: flex; flex-direction: column; gap: 3px; } .fg.full { grid-column: 1/-1; }
-.flbl { font-size: 12px; color: var(--text2); }
-.finput { padding: 9px 10px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; width: 100%; }
-.finput:focus { outline: none; border-color: var(--teal); }
-textarea.finput { resize: vertical; min-height: 65px; }
-
-.cg { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 5px; }
-.ci { display: flex; align-items: center; gap: 7px; padding: 8px 9px; border-radius: var(--radius-sm); border: .5px solid var(--border); background: var(--surface2); cursor: pointer; transition: all .15s; user-select: none; }
-.ci:active { opacity: .7; }
-.ci.chk { background: var(--teal-light); border-color: var(--teal); }
-.ci.chk .cb { background: var(--teal); border-color: var(--teal); }
-.ci.chk .cb i { display: block; }
-.cb { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--surface); }
-.cb i { display: none; color: #fff; font-size: 12px; }
-.clbl { font-size: 13px; color: var(--text); line-height: 1.3; }
-
-.rg { display: flex; gap: 6px; flex-wrap: wrap; }
-.ri { padding: 7px 13px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); font-size: 13px; cursor: pointer; color: var(--text2); transition: all .15s; user-select: none; }
-.ri:active { opacity: .7; }
-.ri.sel { background: var(--teal); color: #fff; border-color: var(--teal); font-weight: 500; }
-
-.sfield { width: 100%; padding: 9px 10px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; }
-.savebtn { width: 100%; padding: 13px; border-radius: var(--radius); background: var(--teal); color: #fff; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 7px; }
-.savebtn:active { background: var(--teal-mid); }
-
-.pclist { display: flex; flex-direction: column; gap: 7px; }
-.pc { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); padding: 13px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color .15s; }
-.pc:active { border-color: var(--teal); }
-.pav { width: 42px; height: 42px; border-radius: 50%; background: var(--teal-light); color: var(--teal); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
-.pi { flex: 1; min-width: 0; }
-.pn { font-size: 15px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pm { font-size: 12px; color: var(--text2); margin-top: 2px; }
-.pacts { display: flex; gap: 5px; }
-.ib { width: 32px; height: 32px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text2); transition: all .15s; font-size: 16px; }
-.ib.danger:active { background: var(--red-light); color: var(--red); }
-
-.empty { text-align: center; padding: 40px 16px; color: var(--text2); }
-.empty i { font-size: 42px; color: var(--border2); margin-bottom: 10px; display: block; }
-.empty p { font-size: 14px; line-height: 1.6; }
-
-.badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; background: var(--teal-light); color: var(--teal-mid); }
-.badge.gray { background: var(--surface2); color: var(--text2); }
-.badge.blue { background: var(--blue-light); color: var(--blue); }
-
-.esec { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
-.eshd { padding: 12px 14px; display: flex; align-items: center; gap: 7px; background: var(--surface2); border-bottom: .5px solid var(--border); cursor: pointer; }
-.estitle { font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
-.esbody { padding: 12px 14px; }
-.eir { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
-.eiinput { flex: 1; padding: 8px 10px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 13px; font-family: inherit; }
-.eiinput:focus { outline: none; border-color: var(--teal); }
-.tsel { padding: 8px 7px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text2); font-size: 12px; font-family: inherit; }
-.addbtn { width: 100%; padding: 8px; border: 1px dashed var(--border2); border-radius: var(--radius-sm); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 5px; }
-.addbtn:active { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
-.secadd { width: 100%; padding: 11px; border: 1.5px dashed var(--teal-pale); border-radius: var(--radius); background: var(--teal-light); color: var(--teal-mid); font-size: 14px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 4px; }
-.secadd:active { background: var(--teal-pale); }
-
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--teal); color: #fff; padding: 10px 20px; border-radius: var(--radius); font-size: 14px; font-weight: 500; z-index: 999; opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap; }
-.toast.show { opacity: 1; }
-
-.moverlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-.moverlay.open { display: flex; }
-.modal { background: var(--surface); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 320px; border: .5px solid var(--border2); }
-.modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 7px; }
-.modal p { font-size: 13px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
-.macts { display: flex; gap: 8px; justify-content: flex-end; }
-.bghost { padding: 8px 14px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; cursor: pointer; font-size: 13px; font-family: inherit; color: var(--text2); }
-.bdanger { padding: 8px 14px; border-radius: var(--radius-sm); border: none; background: var(--red); color: #fff; cursor: pointer; font-size: 13px; font-family: inherit; }
-
-.nota { font-size: 12px; color: var(--text2); font-style: italic; padding: 8px 10px; background: var(--surface2); border-radius: var(--radius-sm); border-left: 3px solid var(--teal); }
-.srch-wrap { position: relative; margin-bottom: 10px; }
-.srch-wrap i { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 17px; pointer-events: none; }
-.srch { width: 100%; padding: 10px 12px 10px 36px; border-radius: var(--radius); border: .5px solid var(--border2); background: var(--surface); color: var(--text); font-size: 14px; font-family: inherit; }
-.srch:focus { outline: none; border-color: var(--teal); }
-
-.hdr-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.hdr-title { font-size: 18px; font-weight: 600; color: var(--text); }
-.hcount { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
-
-.pdetail-nav { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
-.pdetail-back { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--teal); cursor: pointer; padding: 4px 0; }
-.pdetail-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
-.pdetail-tab { padding: 7px 14px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; }
-.pdetail-tab.active { background: var(--teal); color: #fff; border-color: var(--teal); }
-
-.hist-list { display: flex; flex-direction: column; gap: 8px; }
-.hist-item { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.hist-hd { padding: 12px 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.hist-hd:active { background: var(--surface2); }
-.hist-date { font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
-.hist-body { padding: 12px 14px; border-top: .5px solid var(--border); }
-.hfield { margin-bottom: 8px; }
-.hflbl { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
-.hfval { font-size: 13px; color: var(--text); line-height: 1.5; }
-.tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.tag { padding: 2px 8px; border-radius: 20px; font-size: 12px; background: var(--teal-light); color: var(--teal-mid); }
-
-.collapse-icon { transition: transform .2s; font-size: 14px; color: var(--text3); }
-.collapse-icon.open { transform: rotate(180deg); }
-
-.sect-label { font-size: 13px; font-weight: 600; color: var(--teal); margin-bottom: 6px; margin-top: 10px; }
-
-@media (max-width: 480px) {
-  .pgrid { grid-template-columns: 1fr; }
-  .logo span { display: none; }
-  .tab span { display: none; }
-  .tabs { gap: 2px; }
-  .tab { padding: 7px 9px; }
-}
 </style>
 </head>
 <body>
-
 <div class="topbar">
   <div class="logo"><i class="ti ti-stethoscope"></i><span>PodoExamen</span></div>
   <div class="tabs">
-    <button class="tab active" onclick="showScreen('patients')"><i class="ti ti-users"></i><span> Patients</span></button>
-    <button class="tab" onclick="showScreen('exam')"><i class="ti ti-clipboard-list"></i><span> Examen</span></button>
-    <button class="tab" onclick="showScreen('edit')"><i class="ti ti-settings"></i><span> Édition</span></button>
+    <button class="tab active" onclick="showScreen('patients')"><i class="ti ti-users"></i> Patients</button>
+    <button class="tab" onclick="showScreen('exam')"><i class="ti ti-clipboard-list"></i> Examen</button>
+    <button class="tab" onclick="showScreen('posto')"><i class="ti ti-body-scan"></i> Posturo</button>
+    <button class="tab" onclick="showScreen('sport')"><i class="ti ti-run"></i> Sport</button>
+    <button class="tab" onclick="showScreen('conclusion')"><i class="ti ti-report-analytics"></i> Conclusion</button>
+    <button class="tab" onclick="showScreen('edit')"><i class="ti ti-settings"></i> Édition</button>
   </div>
-  <div>
-    <button class="tbtn green" onclick="exportPDF()"><i class="ti ti-printer"></i> PDF</button>
-  </div>
+  <button class="tbtn green" onclick="exportPDF()"><i class="ti ti-printer"></i></button>
 </div>
-
 <div class="main">
-
   <!-- PATIENTS -->
   <div id="screen-patients" class="screen active">
-    <div class="hdr-row">
-      <div class="hdr-title">Patients</div>
-      <button class="tbtn green" onclick="newPatient()"><i class="ti ti-plus"></i> Nouveau</button>
-    </div>
-    <div class="srch-wrap">
-      <i class="ti ti-search"></i>
-      <input class="srch" type="search" placeholder="Rechercher par nom, prénom…" oninput="filterPatients(this.value)" id="srch-input">
-    </div>
+    <div class="hdr-row"><div class="hdr-title">Patients</div><button class="tbtn green" onclick="newPatient()"><i class="ti ti-plus"></i> Nouveau</button></div>
+    <div class="srch-wrap"><i class="ti ti-search"></i><input class="srch" type="search" placeholder="Rechercher…" oninput="filterPatients(this.value)"></div>
     <div id="pcount" class="hcount"></div>
     <div id="plist" class="pclist"></div>
   </div>
-
   <!-- EXAM -->
   <div id="screen-exam" class="screen">
-    <div id="exam-nop" style="display:none">
-      <div class="empty"><i class="ti ti-user-question"></i><p>Aucun patient sélectionné.<br>Choisissez un patient dans la liste.</p>
-        <button class="savebtn" style="width:auto;padding:10px 20px;margin:14px auto 0;" onclick="showScreen('patients')"><i class="ti ti-users"></i> Voir la liste</button>
-      </div>
-    </div>
+    <div id="exam-nop" style="display:none"><div class="empty"><i class="ti ti-user-question"></i><p>Aucun patient sélectionné.</p><button class="savebtn" style="width:auto;padding:9px 18px;margin:12px auto 0;" onclick="showScreen('patients')"><i class="ti ti-users"></i> Voir la liste</button></div></div>
     <div id="exam-content"></div>
   </div>
-
-  <!-- EDIT -->
-  <div id="screen-edit" class="screen">
-    <div class="hdr-row"><div class="hdr-title">Configuration des grilles</div></div>
-    <p class="nota" style="margin-bottom:12px;">Ajoutez, modifiez ou supprimez des sections et des champs. Ces grilles s'appliquent à tous les nouveaux examens.</p>
-    <div id="edit-sections"></div>
-    <button class="secadd" onclick="addSection()"><i class="ti ti-plus"></i> Ajouter une section</button>
-    <button class="savebtn" style="margin-top:12px;" onclick="saveTemplate()"><i class="ti ti-device-floppy"></i> Enregistrer la configuration</button>
+  <!-- POSTUROLOGIE -->
+  <div id="screen-posto" class="screen">
+    <div id="posto-nop" style="display:none"><div class="empty"><i class="ti ti-user-question"></i><p>Aucun patient sélectionné.</p><button class="savebtn" style="width:auto;padding:9px 18px;margin:12px auto 0;" onclick="showScreen('patients')"><i class="ti ti-users"></i> Voir la liste</button></div></div>
+    <div id="posto-content"></div>
+  </div>
+  <!-- SPORT -->
+  <div id="screen-sport" class="screen">
+    <div id="sport-nop" style="display:none"><div class="empty"><i class="ti ti-user-question"></i><p>Aucun patient sélectionné.</p><button class="savebtn" style="width:auto;padding:9px 18px;margin:12px auto 0;" onclick="showScreen('patients')"><i class="ti ti-users"></i> Voir la liste</button></div></div>
+    <div id="sport-content"></div>
+  </div>
+  <!-- CONCLUSION -->
+  <div id="screen-conclusion" class="screen">
+    <div id="concl-nop" style="display:none"><div class="empty"><i class="ti ti-user-question"></i><p>Aucun patient sélectionné.</p><button class="savebtn" style="width:auto;padding:9px 18px;margin:12px auto 0;" onclick="showScreen('patients')"><i class="ti ti-users"></i> Voir la liste</button></div></div>
+    <div id="concl-content"></div>
   </div>
 
+  <!-- EDITION -->
+  <div id="screen-edit" class="screen">
+    <div class="hdr-row"><div class="hdr-title">Configuration des grilles</div></div>
+    <div class="pdetail-tabs" style="margin-bottom:12px;">
+      <button class="pdetail-tab active" id="etab-exam" onclick="switchEditTab('exam')"><i class="ti ti-clipboard-list" style="font-size:12px"></i> Examen</button>
+      <button class="pdetail-tab" id="etab-posto" onclick="switchEditTab('posto')"><i class="ti ti-body-scan" style="font-size:12px"></i> Posturologie</button>
+      <button class="pdetail-tab" id="etab-sport" onclick="switchEditTab('sport')"><i class="ti ti-run" style="font-size:12px"></i> Sport</button>
+    </div>
+    <div id="edit-content"></div>
+  </div>
 </div>
-
 <div class="toast" id="toast"></div>
 <div class="moverlay" id="moverlay">
   <div class="modal">
-    <h3 id="mtitle">Confirmation</h3>
-    <p id="mmsg"></p>
-    <div class="macts">
-      <button class="bghost" onclick="closeMod()">Annuler</button>
-      <button class="bdanger" id="mconfirm">Supprimer</button>
-    </div>
+    <h3 id="mtitle">Confirmation</h3><p id="mmsg"></p>
+    <div class="macts"><button class="bghost" onclick="closeMod()">Annuler</button><button class="bdanger" id="mconfirm">Supprimer</button></div>
   </div>
 </div>
 
+</div>
 <script>
+
+// ── DB ──
 const DB={get:k=>{try{return JSON.parse(localStorage.getItem(k))}catch{return null}},set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
 
+// ── DEFAULT TEMPLATE ──
 const DEFAULT_TPL=[
+  // ── ANAMNÈSE ──
   {id:'anamnese',title:'Anamnèse',icon:'ti-user',items:[
     {id:'motif',label:'Motif de consultation',type:'textarea'},
     {id:'atcd_med',label:'Antécédents médicaux',type:'checks',options:['Diabète','HTA','Artérite','Insuffisance veineuse','Polyarthrite rhumatoïde','Goutte','Ostéoporose','Obésité','Neuropathie','Insuffisance rénale']},
     {id:'atcd_chir',label:'Antécédents chirurgicaux',type:'text'},
     {id:'traitement',label:'Traitement en cours',type:'text'},
     {id:'allergies',label:'Allergies',type:'text'},
-    {id:'activite',label:'Activité physique',type:'radio',options:['Sédentaire','Modérée','Sportive','Professionnelle (station debout)']},
-    {id:'chaussage',label:'Chaussage habituel',type:'radio',options:['Ville','Sport','Travail','Talon haut','Chaussures larges']},
+    {id:'taille',label:'Taille',type:'select',options:['140 cm','142 cm','144 cm','146 cm','148 cm','150 cm','152 cm','154 cm','156 cm','158 cm','160 cm','162 cm','164 cm','166 cm','168 cm','170 cm','172 cm','174 cm','176 cm','178 cm','180 cm','182 cm','184 cm','186 cm','188 cm','190 cm','192 cm','194 cm','196 cm','198 cm','200 cm']},
+    {id:'poids',label:'Poids',type:'select',options:['40 kg','42 kg','44 kg','46 kg','48 kg','50 kg','52 kg','54 kg','56 kg','58 kg','60 kg','62 kg','64 kg','66 kg','68 kg','70 kg','72 kg','74 kg','76 kg','78 kg','80 kg','82 kg','84 kg','86 kg','88 kg','90 kg','92 kg','94 kg','96 kg','98 kg','100 kg','105 kg','110 kg','115 kg','120 kg','125 kg','130 kg','140 kg','150 kg']},
+    {id:'pointure',label:'Pointure',type:'select',options:['34','35','36','37','38','39','40','41','42','43','44','45','46','47','48']},
+    {id:'activite',label:'Activité physique',type:'radio',options:['Sédentaire','Modérée','Sportive','Professionnelle (debout)']},
+    {id:'chaussage',label:'Chaussage habituel',type:'checks',options:['Ville','Baskets','Sport','Travail','Sécurité','Talon haut','Ballerines','Crocs','Chaussures larges','Pieds nus fréquents']},
   ]},
-  {id:'examen_statique',title:'Examen statique',icon:'ti-man',items:[
+  // ── EXAMEN STATIQUE ──
+  {id:'examen_statique',title:'Examen statique & en charge',icon:'ti-man',items:[
     {id:'morpho',label:'Morphologie du pied',type:'radio',options:['Pied grec','Pied carré','Pied égyptien']},
     {id:'formule',label:'Formule digitale',type:'radio',options:['Index minus','Index plus','Index plus-minus']},
-    {id:'talon',label:'Axe du talon',type:'radio',options:['Valgus','Varus','Neutre']},
-    {id:'voute',label:'Voûte plantaire',type:'radio',options:['Pied creux','Pied plat','Pied normal']},
-    {id:'patho_stat',label:'Pathologies observées',type:'checks',options:["Hallux valgus","Hallux rigidus","Quintus varus","Griffes d'orteils","Cors","Durillons","Onycho-cryptose","Onychomycose","Verrues plantaires","Hyperkératose talonnière"]},
+    // Talon G/D séparés
+    {id:'talon_g',label:'Axe du talon — Gauche',type:'radio',options:['Valgus','Varus','Neutre']},
+    {id:'talon_d',label:'Axe du talon — Droit',type:'radio',options:['Valgus','Varus','Neutre']},
+    // Voûte avec degré
+    {id:'voute_g',label:'Voûte plantaire — Gauche',type:'radio',options:['Pied normal','Pied plat 1er degré','Pied plat 2e degré','Pied plat 3e degré','Pied creux 1er degré','Pied creux 2e degré','Pied creux 3e degré']},
+    {id:'voute_d',label:'Voûte plantaire — Droite',type:'radio',options:['Pied normal','Pied plat 1er degré','Pied plat 2e degré','Pied plat 3e degré','Pied creux 1er degré','Pied creux 2e degré','Pied creux 3e degré']},
+    {id:'avp_arp',label:'Avant-pied / arrière-pied',type:'radio',options:['Alignés','AVP valgus','AVP varus','ARP valgus','ARP varus']},
+    // Genou G/D avec flexum/recurvatum
+    {id:'genou_g',label:'Axe du genou — Gauche',type:'radio',options:['Neutre','Valgum','Varum','Flexum','Recurvatum']},
+    {id:'genou_d',label:'Axe du genou — Droit',type:'radio',options:['Neutre','Valgum','Varum','Flexum','Recurvatum']},
+    {id:'tibias',label:'Torsion tibiale',type:'radio',options:['Neutre','Interne','Externe']},
+    // Bassin
+    {id:'bassin',label:'Position du bassin',type:'checks',options:['Antéposition G','Antéposition D','Rétroposition G','Rétroposition D','Antéversion bilatérale','Rétroversion bilatérale','Antépulsion G','Antépulsion D','Rétropulsion G','Rétropulsion D','Translation latérale G','Translation latérale D','Latéroversion G','Latéroversion D']},
+    {id:'hanche_g',label:'Position hanche — Gauche',type:'checks',options:['Neutre','Antéversion','Rétroversion','Adduction','Abduction']},
+    {id:'hanche_d',label:'Position hanche — Droite',type:'checks',options:['Neutre','Antéversion','Rétroversion','Adduction','Abduction']},
+    // Rachis / scoliose
+    {id:'scoliose',label:'Courbure scoliotique',type:'radio',options:['Absente','Présente droite','Présente gauche','Complexe (double courbure)']},
+    {id:'gibbosite',label:'Gibbosité (test antéflexion)',type:'radio',options:['Absente','Présente G','Présente D']},
+    {id:'gibbosite_pers',label:'Gibbosité persistante assis jambes pendantes',type:'radio',options:['Non testée','Oui — structurale','Non — fonctionnelle']},
+    // Épaules
+    {id:'epaule_haut',label:'Épaule plus haute',type:'radio',options:['Symétrique','Gauche plus haute','Droite plus haute']},
+    {id:'enroulement_ep',label:'Enroulement des épaules',type:'checks',options:['Absent','Enroulement gauche','Enroulement droit','Bilatéral']},
+    // Zones d'appui
+    {id:'appui',label:"Zones d'appui excessif",type:'checks',options:['Talon latéral G','Talon latéral D','Talon médial G','Talon médial D','Métatarses centraux G','Métatarses centraux D','1er métatarse G','1er métatarse D','5e métatarse G','5e métatarse D','Avant-pied diffus G','Avant-pied diffus D']},
+    // Pathologies
+    {id:'patho_stat',label:'Pathologies observées',type:'checks',options:["Hallux valgus G","Hallux valgus D","Hallux rigidus G","Hallux rigidus D","Quintus varus G","Quintus varus D","Griffes d'orteils G","Griffes d'orteils D","Cors","Durillons","Onycho-cryptose","Onychomycose","Verrues plantaires","Hyperkératose talonnière"]},
+    {id:'obs_statique',label:'Observations',type:'textarea'},
   ]},
+  // ── EXAMEN DE LA MARCHE ──
   {id:'examen_marche',title:'Examen de la marche',icon:'ti-walk',items:[
     {id:'pas',label:'Longueur du pas',type:'radio',options:['Normal','Réduit','Augmenté']},
     {id:'attaque',label:'Attaque du talon',type:'radio',options:['Normale','Absente','Augmentée']},
     {id:'propulsion',label:'Propulsion',type:'radio',options:['Normale','Insuffisante','Inexistante']},
-    {id:'devi_marche',label:'Déviation à la marche',type:'checks',options:['En dedans','En dehors','Équin','Steppage','Trendelenburg','Antalgique','Fauchage']},
+    {id:'devi_marche',label:'Déviation à la marche',type:'checks',options:['En dedans','En dehors','Équin','Steppage','Trendelenburg G','Trendelenburg D','Antalgique','Fauchage']},
+    // Genoux à la marche
+    {id:'genou_marche_g',label:'Orientation genou G — marche',type:'radio',options:['Neutre','Valgus dynamique','Varus dynamique','Recurvatum dynamique','Flexum dynamique']},
+    {id:'genou_marche_d',label:'Orientation genou D — marche',type:'radio',options:['Neutre','Valgus dynamique','Varus dynamique','Recurvatum dynamique','Flexum dynamique']},
+    {id:'axe_genou_marche',label:'Axe de mouvement des genoux',type:'checks',options:['Valgus dynamique G','Valgus dynamique D','Varus dynamique G','Varus dynamique D','Décalage médial G','Décalage médial D']},
+    // Rotation hanches
+    {id:'rot_hanche_g',label:'Rotation hanche G — marche',type:'radio',options:['Neutre','Rotation interne','Rotation externe']},
+    {id:'rot_hanche_d',label:'Rotation hanche D — marche',type:'radio',options:['Neutre','Rotation interne','Rotation externe']},
+    // Ceinture scapulaire / acromions
+    {id:'ceinture_scap',label:'Ceinture scapulaire (acromions)',type:'radio',options:['Symétrique','Abaissement G','Abaissement D','Élévation G','Élévation D']},
+    {id:'rotation_scap',label:'Rotation de la ceinture scapulaire',type:'radio',options:['Neutre','Rotation G','Rotation D','Contre-rotation excessive']},
     {id:'obs_marche',label:'Observations',type:'textarea'},
   ]},
-  {id:'examen_charge',title:'Examen en charge',icon:'ti-arrows-down-up',items:[
-    {id:'genou',label:'Axe du genou',type:'radio',options:['Valgum','Varum','Neutre']},
-    {id:'tibias',label:'Torsion tibiale',type:'radio',options:['Interne','Externe','Neutre']},
-    {id:'avp_arp',label:'Avant-pied / arrière-pied',type:'radio',options:['Alignés','AVP valgus','AVP varus','ARP valgus','ARP varus']},
-    {id:'appui',label:"Zones d'appui excessif",type:'checks',options:['Talon latéral','Talon médial','Métatarses centraux','1er métatarse','5e métatarse','Avant-pied diffus']},
-    {id:'obs_charge',label:'Observations',type:'textarea'},
-  ]},
+  // ── BILAN CUTANÉ ──
   {id:'bilan_cutan',title:'Bilan cutané',icon:'ti-zoom-in',items:[
     {id:'hydrat',label:'Hydratation cutanée',type:'radio',options:['Normale','Sèche','Très sèche','Grasse']},
     {id:'lesions',label:'Lésions cutanées',type:'checks',options:['Hyperkératose','Fissures','Macération','Intertrigo','Ulcération','Bulle','Érythème','Cyanose','Cicatrice']},
-    {id:'ongles',label:'État des ongles',type:'checks',options:['Normaux','Onychomycose','Onychogrypose','Onycholyse','Onycho-cryptose','Hématome sous-unguéal','Onychie']},
+    {id:'ongles',label:'État des ongles',type:'checks',options:['Normaux','Onychomycose','Onychogrypose','Onycholyse','Onycho-cryptose','Hématome sous-unguéal']},
   ]},
+  // ── PLAN DE TRAITEMENT ──
   {id:'plan',title:'Plan de traitement',icon:'ti-clipboard-check',items:[
     {id:'trt_prop',label:'Traitement proposé',type:'checks',options:['Orthèse plantaire sur mesure','Orthoplastie','Soin de pédicurie','Conseil chaussage','Bilan complémentaire','Référé médecin','Infiltration','Rééducation','Semelle préfabriquée']},
     {id:'notes_plan',label:'Notes et prescription',type:'textarea'},
@@ -269,53 +310,65 @@ const DEFAULT_TPL=[
   ]},
 ];
 
+// ── STATE ──
+const TPL_VERSION = '2.2';
 let S={
   screen:'patients',
-  patients: DB.get('podo_patients')||[],
-  tpl: DB.get('podo_tpl')||DEFAULT_TPL,
-  curId:null, examData:{}, filter:'',
-  editCollapsed:{}, histCollapsed:{}, examTab:'new',
+  patients:DB.get('podo_patients')||[],
+  tpl:(DB.get('podo_tpl_version')===TPL_VERSION ? DB.get('podo_tpl') : null)||DEFAULT_TPL,
+  curId:null,examData:{},filter:'',
+  editCollapsed:{},histCollapsed:{},examTab:'new',
 };
 
-function save(){DB.set('podo_patients',S.patients);DB.set('podo_tpl',S.tpl);}
+function save(){DB.set('podo_patients',S.patients);DB.set('podo_tpl',S.tpl);DB.set('podo_tpl_version',TPL_VERSION);}
+function loadCustomConfigs(){
+  const pc=DB.get('podo_posto_custom');if(pc){S.postoCustom=pc;Object.assign(POSTO_TESTS,pc);Object.keys(POSTO_TESTS).forEach(k=>{if(!pc[k])delete POSTO_TESTS[k];});}
+  const sc=DB.get('podo_sport_custom');if(sc){S.sportCustom=sc;Object.assign(SPORT_TESTS,sc);Object.keys(SPORT_TESTS).forEach(k=>{if(!sc[k])delete SPORT_TESTS[k];});}
+}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function closeMod(){document.getElementById('moverlay').classList.remove('open');}
 
+// ── NAVIGATION ──
 function showScreen(s){
   S.screen=s;
   document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach((e,i)=>{e.classList.remove('active');if(['patients','exam','edit'][i]===s)e.classList.add('active');});
+  document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
   document.getElementById('screen-'+s).classList.add('active');
+  const tabMap={patients:0,exam:1,posto:2,sport:3,conclusion:4,edit:5};
+  const tabs=document.querySelectorAll('.tab');
+  if(tabMap[s]!==undefined && tabs[tabMap[s]]) tabs[tabMap[s]].classList.add('active');
   if(s==='patients')renderPatients();
   if(s==='exam')renderExam();
+  if(s==='posto')renderPosto();
+  if(s==='sport')renderSport();
+  if(s==='conclusion')renderConclusion();
   if(s==='edit')renderEdit();
 }
 
+// ── PATIENTS ──
 function initials(p){return((p.prenom||'?')[0]+(p.nom||'?')[0]).toUpperCase();}
 function age(ddn){if(!ddn)return'';const d=new Date(ddn);const a=Math.floor((Date.now()-d)/(365.25*24*3600*1000));return a>0?a+' ans':'';}
-
 function filterPatients(q){S.filter=q;renderPatients();}
 
 function renderPatients(){
   const q=S.filter.toLowerCase().trim();
   let list=S.patients;
   if(q)list=list.filter(p=>(p.nom+' '+p.prenom).toLowerCase().includes(q)||(p.prenom+' '+p.nom).toLowerCase().includes(q));
-  const cnt=document.getElementById('pcount');
-  cnt.textContent=S.patients.length===0?'':q?`${list.length} résultat${list.length>1?'s':''} sur ${S.patients.length}`:`${S.patients.length} patient${S.patients.length>1?'s':''}`;
+  document.getElementById('pcount').textContent=S.patients.length===0?'':q?`${list.length} résultat(s) sur ${S.patients.length}`:`${S.patients.length} patient(s)`;
   const el=document.getElementById('plist');
-  if(!list.length){
-    el.innerHTML=`<div class="empty"><i class="ti ti-user-search"></i><p>${q?'Aucun résultat pour « '+q+' »':'Aucun patient enregistré.<br>Appuyez sur « Nouveau » pour commencer.'}</p></div>`;
-    return;
-  }
+  if(!list.length){el.innerHTML=`<div class="empty"><i class="ti ti-user-search"></i><p>${q?'Aucun résultat.':'Aucun patient enregistré.'}</p></div>`;return;}
   el.innerHTML=list.map(p=>`
     <div class="pc" onclick="openPatient('${p.id}')">
       <div class="pav">${initials(p)}</div>
       <div class="pi">
-        <div class="pn">${p.prenom||''} ${p.nom||''}</div>
-        <div class="pm">${age(p.ddn)?age(p.ddn)+' · ':''}${p.tel||''}</div>
-        <div class="pm" style="margin-top:3px;">${p.exams&&p.exams.length?`<span class="badge">${p.exams.length} examen${p.exams.length>1?'s':''} · Dernier : ${p.exams[p.exams.length-1].date}</span>`:'<span class="badge gray">Pas encore d\'examen</span>'}</div>
+        <div class="pn">${esc(p.prenom)} ${esc(p.nom)}</div>
+        <div class="pm">${age(p.ddn)?age(p.ddn)+' · ':''}${esc(p.tel||'')}</div>
+        <div class="pm" style="margin-top:2px;">${p.exams&&p.exams.length?`<span class="badge">${p.exams.length} examen(s) · ${p.exams[p.exams.length-1].date}</span>`:'<span class="badge gray">Pas encore d\'examen</span>'}</div>
       </div>
       <div class="pacts" onclick="event.stopPropagation()">
-        <button class="ib" onclick="openPatient('${p.id}')" title="Ouvrir"><i class="ti ti-clipboard-list"></i></button>
-        <button class="ib danger" onclick="confirmDel('${p.id}')" title="Supprimer"><i class="ti ti-trash"></i></button>
+        <button class="ib" onclick="openPatient('${p.id}')"><i class="ti ti-clipboard-list"></i></button>
+        <button class="ib danger" onclick="confirmDel('${p.id}')"><i class="ti ti-trash"></i></button>
       </div>
     </div>`).join('');
 }
@@ -326,39 +379,28 @@ function newPatient(){
   S.curId=id;S.examData={};S.examTab='new';
   save();showScreen('exam');
 }
-function openPatient(id){
-  S.curId=id;S.examData={};S.examTab='new';
-  showScreen('exam');
-}
+function openPatient(id){S.curId=id;S.examData={};S.examTab='new';showScreen('exam');}
 function confirmDel(id){
   const p=S.patients.find(x=>x.id===id);
   document.getElementById('mtitle').textContent='Supprimer le patient';
-  document.getElementById('mmsg').textContent=`Supprimer définitivement le dossier de ${p.prenom} ${p.nom} et tous ses examens ?`;
+  document.getElementById('mmsg').textContent=`Supprimer définitivement le dossier de ${p.prenom} ${p.nom} ?`;
   document.getElementById('mconfirm').onclick=()=>{S.patients=S.patients.filter(x=>x.id!==id);if(S.curId===id)S.curId=null;save();renderPatients();closeMod();showToast('Patient supprimé');};
   document.getElementById('moverlay').classList.add('open');
 }
-function closeMod(){document.getElementById('moverlay').classList.remove('open');}
 
+// ── EXAM ──
 function renderExam(){
   const p=S.patients.find(x=>x.id===S.curId);
-  const nop=document.getElementById('exam-nop');
-  const cont=document.getElementById('exam-content');
+  const nop=document.getElementById('exam-nop'),cont=document.getElementById('exam-content');
   if(!p){nop.style.display='';cont.innerHTML='';return;}
   nop.style.display='none';
   const hasExams=p.exams&&p.exams.length>0;
-
-  let html=`<div class="pdetail-nav">
-    <span class="pdetail-back" onclick="showScreen('patients')"><i class="ti ti-arrow-left" style="font-size:14px"></i> Patients</span>
-    <span style="color:var(--text3);font-size:13px;">/</span>
-    <span style="font-size:13px;font-weight:600;color:var(--text);">${p.prenom||'Nouveau'} ${p.nom||'patient'}</span>
-  </div>
+  let html=`<div class="pdetail-nav"><span class="pdetail-back" onclick="showScreen('patients')"><i class="ti ti-arrow-left" style="font-size:13px"></i> Patients</span><span style="color:var(--text3);">/</span><span style="font-size:13px;font-weight:600;">${esc(p.prenom)} ${esc(p.nom)}</span></div>
   <div class="pdetail-tabs">
-    <button class="pdetail-tab${S.examTab==='new'?' active':''}" onclick="switchExamTab('new')"><i class="ti ti-plus" style="font-size:13px"></i> Nouvel examen</button>
-    <button class="pdetail-tab${S.examTab==='hist'?' active':''}" onclick="switchExamTab('hist')"><i class="ti ti-history" style="font-size:13px"></i> Historique ${hasExams?'<span class="badge blue" style="margin-left:4px">'+p.exams.length+'</span>':''}</button>
+    <button class="pdetail-tab${S.examTab==='new'?' active':''}" onclick="switchExamTab('new')"><i class="ti ti-plus" style="font-size:12px"></i> Nouvel examen</button>
+    <button class="pdetail-tab${S.examTab==='hist'?' active':''}" onclick="switchExamTab('hist')"><i class="ti ti-history" style="font-size:12px"></i> Historique ${hasExams?'<span class="badge blue" style="margin-left:3px">'+p.exams.length+'</span>':''}</button>
   </div>`;
-
   if(S.examTab==='new'){
-    html+=`<div style="margin-top:4px;">`;
     html+=`<div class="card"><div class="card-hd"><i class="ti ti-id-badge"></i>Identité</div>
     <div class="pgrid">
       <div class="fg"><div class="flbl">Nom</div><input class="finput" value="${esc(p.nom)}" placeholder="Dupont" oninput="upP('nom',this.value)"></div>
@@ -369,26 +411,21 @@ function renderExam(){
     </div></div>`;
     S.tpl.forEach(sec=>{html+=renderSection(sec);});
     html+=`<button class="savebtn" onclick="saveExam()"><i class="ti ti-device-floppy"></i> Enregistrer l'examen</button>`;
-    html+=`</div>`;
   } else {
-    html+=`<div style="margin-top:4px;">`;
-    if(!hasExams){
-      html+=`<div class="empty"><i class="ti ti-clipboard-off"></i><p>Aucun examen enregistré pour ce patient.</p></div>`;
-    } else {
+    if(!hasExams){html+=`<div class="empty"><i class="ti ti-clipboard-off"></i><p>Aucun examen enregistré.</p></div>`;}
+    else{
       html+=`<div class="hist-list">`;
-      const exams=[...p.exams].reverse();
-      exams.forEach((ex,ri)=>{
+      [...p.exams].reverse().forEach((ex,ri)=>{
         const i=p.exams.length-1-ri;
         const open=!S.histCollapsed[i];
-        html+=`<div class="hist-item">
-          <div class="hist-hd" onclick="toggleHist(${i})">
-            <i class="ti ti-calendar-event" style="font-size:16px;color:var(--teal);"></i>
-            <span class="hist-date">Examen du ${ex.date}</span>
-            ${i===p.exams.length-1?'<span class="badge" style="margin-right:4px;">Dernier</span>':''}
-            <button class="ib" style="margin-right:2px;" onclick="event.stopPropagation();loadExamForEdit(${i})" title="Recharger"><i class="ti ti-edit"></i></button>
-            <button class="ib danger" onclick="event.stopPropagation();confirmDelExam(${i})" title="Supprimer"><i class="ti ti-trash"></i></button>
-            <i class="ti ti-chevron-down collapse-icon${open?' open':''}"></i>
-          </div>`;
+        html+=`<div class="hist-item"><div class="hist-hd" onclick="toggleHist(${i})">
+          <i class="ti ti-calendar-event" style="font-size:15px;color:var(--teal);"></i>
+          <span class="hist-date">Examen du ${ex.date}</span>
+          ${i===p.exams.length-1?'<span class="badge" style="margin-right:4px;">Dernier</span>':''}
+          <button class="ib" onclick="event.stopPropagation();loadExamForEdit(${i})"><i class="ti ti-edit"></i></button>
+          <button class="ib danger" onclick="event.stopPropagation();confirmDelExam(${i})"><i class="ti ti-trash"></i></button>
+          <i class="ti ti-chevron-down collapse-icon${open?' open':''}"></i>
+        </div>`;
         if(open){
           html+=`<div class="hist-body">`;
           S.tpl.forEach(sec=>{
@@ -396,11 +433,10 @@ function renderExam(){
             if(!hasData)return;
             html+=`<div class="sect-label">${sec.title}</div>`;
             sec.items.forEach(it=>{
-              const v=ex.data[it.id];
-              if(!v||v===''||(Array.isArray(v)&&!v.length))return;
-              html+=`<div class="hfield"><div class="hflbl">${it.label}</div><div class="hfval">`;
+              const v=ex.data[it.id];if(!v||v===''||(Array.isArray(v)&&!v.length))return;
+              html+=`<div class="hfield"><div class="hflbl">${esc(it.label)}</div><div class="hfval">`;
               if(Array.isArray(v))html+=`<div class="tags">`+v.map(x=>`<span class="tag">${esc(x)}</span>`).join('')+`</div>`;
-              else html+=`<span>${esc(v)}</span>`;
+              else html+=esc(v);
               html+=`</div></div>`;
             });
           });
@@ -410,43 +446,39 @@ function renderExam(){
       });
       html+=`</div>`;
     }
-    html+=`</div>`;
   }
   cont.innerHTML=html;
-}
-
-function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function switchExamTab(tab){S.examTab=tab;renderExam();}
-function toggleHist(i){S.histCollapsed[i]=!S.histCollapsed[i];renderExam();}
-function loadExamForEdit(i){
-  const p=S.patients.find(x=>x.id===S.curId);
-  S.examData=JSON.parse(JSON.stringify(p.exams[i].data));
-  S.examTab='new';renderExam();showToast('Examen chargé — modifiez et enregistrez');
-}
-function confirmDelExam(i){
-  document.getElementById('mtitle').textContent="Supprimer l'examen";
-  document.getElementById('mmsg').textContent='Supprimer définitivement cet examen ? Cette action est irréversible.';
-  document.getElementById('mconfirm').onclick=()=>{
-    const p=S.patients.find(x=>x.id===S.curId);
-    p.exams.splice(i,1);save();closeMod();S.histCollapsed={};renderExam();showToast('Examen supprimé');
-  };
-  document.getElementById('moverlay').classList.add('open');
 }
 
 function renderSection(sec){
   let h=`<div class="card"><div class="card-hd"><i class="ti ${sec.icon}"></i>${esc(sec.title)}</div>`;
   sec.items.forEach(it=>{
     const v=S.examData[it.id];
-    h+=`<div style="margin-bottom:13px;"><div class="flbl" style="margin-bottom:5px;">${esc(it.label)}</div>`;
+    h+=`<div style="margin-bottom:12px;"><div class="flbl" style="margin-bottom:5px;">${esc(it.label)}</div>`;
     if(it.type==='text') h+=`<input class="finput" value="${esc(v||'')}" placeholder="…" oninput="setV('${it.id}',this.value)">`;
     else if(it.type==='textarea') h+=`<textarea class="finput" placeholder="Notes libres…" oninput="setV('${it.id}',this.value)">${esc(v||'')}</textarea>`;
-    else if(it.type==='radio') h+=`<div class="rg">`+(it.options||[]).map(o=>`<div class="ri${v===o?' sel':''}" onclick="setRadio('${it.id}','${o.replace(/'/g,"\\'")}',this)">${esc(o)}</div>`).join('')+`</div>`;
+    else if(it.type==='radio'){
+      h+=`<div class="rg">`;
+      (it.options||[]).forEach(o=>{
+        const safeO=o.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        h+=`<div class="ri${v===o?' sel':''}" onclick="setRadio('${it.id}','${safeO}',this)">${esc(o)}</div>`;
+      });
+      h+=`</div>`;
+    }
+    else if(it.type==='select'){
+      h+=`<select class="sfield" onchange="setV('${it.id}',this.value)"><option value="">— Sélectionner —</option>`;
+      (it.options||[]).forEach(o=>{h+=`<option${v===o?' selected':''}>${esc(o)}</option>`;});
+      h+=`</select>`;
+    }
     else if(it.type==='checks'){
       const chk=v||[];
-      h+=`<div class="cg">`+(it.options||[]).map(o=>`<div class="ci${chk.includes(o)?' chk':''}" onclick="togChk('${it.id}','${o.replace(/'/g,"\\'")}',this)"><div class="cb"><i class="ti ti-check"></i></div><span class="clbl">${esc(o)}</span></div>`).join('')+`</div>`;
+      h+=`<div class="cg">`;
+      (it.options||[]).forEach(o=>{
+        const safeO=o.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        h+=`<div class="ci${chk.includes(o)?' chk':''}" onclick="togChk('${it.id}','${safeO}',this)"><div class="cb"><i class="ti ti-check"></i></div><span class="clbl">${esc(o)}</span></div>`;
+      });
+      h+=`</div>`;
     }
-    else if(it.type==='select') h+=`<select class="sfield" onchange="setV('${it.id}',this.value)"><option value="">-- Sélectionner --</option>`+(it.options||[]).map(o=>`<option${v===o?' selected':''}>${esc(o)}</option>`).join('')+`</select>`;
     h+=`</div>`;
   });
   h+=`</div>`;return h;
@@ -456,27 +488,54 @@ function setV(id,v){S.examData[id]=v;}
 function setRadio(id,v,el){S.examData[id]=v;el.closest('.rg').querySelectorAll('.ri').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');}
 function togChk(id,v,el){if(!S.examData[id])S.examData[id]=[];const a=S.examData[id];const i=a.indexOf(v);if(i>=0){a.splice(i,1);el.classList.remove('chk');}else{a.push(v);el.classList.add('chk');}}
 function upP(f,v){const p=S.patients.find(x=>x.id===S.curId);if(p)p[f]=v;}
-
+function switchExamTab(tab){S.examTab=tab;renderExam();}
+function toggleHist(i){S.histCollapsed[i]=!S.histCollapsed[i];renderExam();}
+function loadExamForEdit(i){const p=S.patients.find(x=>x.id===S.curId);S.examData=JSON.parse(JSON.stringify(p.exams[i].data));S.examTab='new';renderExam();showToast('Examen chargé');}
+function confirmDelExam(i){
+  document.getElementById('mtitle').textContent="Supprimer l'examen";
+  document.getElementById('mmsg').textContent='Supprimer cet examen définitivement ?';
+  document.getElementById('mconfirm').onclick=()=>{const p=S.patients.find(x=>x.id===S.curId);p.exams.splice(i,1);save();closeMod();S.histCollapsed={};renderExam();showToast('Examen supprimé');};
+  document.getElementById('moverlay').classList.add('open');
+}
 function saveExam(){
   const p=S.patients.find(x=>x.id===S.curId);if(!p)return;
   const now=new Date().toLocaleDateString('fr-FR');
   if(!p.exams)p.exams=[];
   p.exams.push({date:now,data:JSON.parse(JSON.stringify(S.examData))});
-  save();showToast('Examen enregistré ✓');
-  S.examData={};S.examTab='hist';S.histCollapsed={};
-  renderExam();
+  save();showToast('Examen enregistré ✓');S.examData={};S.examTab='hist';S.histCollapsed={};renderExam();
+}
+
+// ── EDITION ──
+// ── EDITION TABBED ──
+let S_editTab = 'exam';
+
+function switchEditTab(tab){
+  S_editTab = tab;
+  document.querySelectorAll('.pdetail-tab[id^="etab-"]').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('etab-'+tab);
+  if(el) el.classList.add('active');
+  renderEdit();
 }
 
 function renderEdit(){
-  const c=document.getElementById('edit-sections');
-  c.innerHTML=S.tpl.map((sec,si)=>`
+  const cont = document.getElementById('edit-content');
+  if(!cont) return;
+  if(S_editTab === 'exam') renderEditExam(cont);
+  else if(S_editTab === 'posto') renderEditPosto(cont);
+  else if(S_editTab === 'sport') renderEditSport(cont);
+}
+
+// ── EDIT EXAMEN ──
+function renderEditExam(cont){
+  let html = '<p class="nota" style="margin-bottom:12px;">Modifiez les sections et champs de l\'onglet Examen.</p>';
+  html += S.tpl.map((sec,si)=>`
     <div class="esec">
       <div class="eshd" onclick="togEditSec(${si})">
-        <i class="ti ${sec.icon}" style="color:var(--teal);font-size:15px;"></i>
+        <i class="ti ${sec.icon}" style="color:var(--teal);font-size:14px;"></i>
         <span class="estitle">${esc(sec.title)}</span>
-        <span style="font-size:12px;color:var(--text2);margin-right:6px;">${sec.items.length} champ${sec.items.length>1?'s':''}</span>
+        <span style="font-size:12px;color:var(--text2);margin-right:5px;">${sec.items.length} champ(s)</span>
         <i class="ti ti-chevron-down collapse-icon${S.editCollapsed[si]?'':' open'}"></i>
-        <button class="ib danger" onclick="event.stopPropagation();delSec(${si})" style="margin-left:6px;" title="Supprimer"><i class="ti ti-trash"></i></button>
+        <button class="ib danger" onclick="event.stopPropagation();delSec(${si})" style="margin-left:5px;"><i class="ti ti-trash"></i></button>
       </div>
       <div class="esbody" id="es-${si}" style="${S.editCollapsed[si]?'display:none':''}">
         <div class="fg" style="margin-bottom:10px;">
@@ -494,15 +553,15 @@ function renderEdit(){
             </select>
             <button class="ib danger" onclick="delItem(${si},${ii})"><i class="ti ti-trash"></i></button>
           </div>
-          ${(it.type==='radio'||it.type==='checks')?`
-          <div style="margin:0 0 8px;padding:8px;background:var(--surface2);border-radius:var(--radius-sm);">
-            <div class="flbl" style="margin-bottom:4px;">Options (une par ligne)</div>
-            <textarea class="eiinput" style="width:100%;min-height:56px;" oninput="upItemOpts(${si},${ii},this.value)">${(it.options||[]).join('\n')}</textarea>
-          </div>`:''}
+          ${(it.type==='radio'||it.type==='checks')?`<div style="margin:0 0 8px;padding:7px;background:var(--surface2);border-radius:var(--radius-sm);"><div class="flbl" style="margin-bottom:3px;">Options (une par ligne)</div><textarea class="eiinput" style="width:100%;min-height:50px;" oninput="upItemOpts(${si},${ii},this.value)">${(it.options||[]).join('\n')}</textarea></div>`:''}
         `).join('')}
         <button class="addbtn" onclick="addItem(${si})"><i class="ti ti-plus"></i> Ajouter un champ</button>
       </div>
     </div>`).join('');
+  html += `<button onclick="resetTemplate()" style="width:100%;padding:9px;border-radius:var(--radius-sm);border:1px dashed var(--red);background:var(--red-light);color:var(--red);font-size:13px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px;"><i class="ti ti-refresh"></i> Réinitialiser aux valeurs par défaut</button>`;
+  html += `<button class="secadd" onclick="addSection()"><i class="ti ti-plus"></i> Ajouter une section</button>`;
+  html += `<button class="savebtn" style="margin-top:12px;" onclick="saveTemplate()"><i class="ti ti-device-floppy"></i> Enregistrer</button>`;
+  cont.innerHTML = html;
 }
 
 function togEditSec(si){S.editCollapsed[si]=!S.editCollapsed[si];renderEdit();}
@@ -515,49 +574,983 @@ function delSec(si){S.tpl.splice(si,1);renderEdit();}
 function addItem(si){S.tpl[si].items.push({id:'i_'+Date.now(),label:'Nouveau champ',type:'text'});S.editCollapsed[si]=false;renderEdit();}
 function addSection(){S.tpl.push({id:'s_'+Date.now(),title:'Nouvelle section',icon:'ti-notes',items:[]});renderEdit();}
 function saveTemplate(){save();showToast('Configuration enregistrée ✓');}
+function resetTemplate(){
+  if(!confirm('Réinitialiser toutes les sections de l\'examen aux valeurs par défaut ? Vos personnalisations seront perdues.')) return;
+  S.tpl=JSON.parse(JSON.stringify(DEFAULT_TPL));
+  save();
+  renderEdit();
+  showToast('Grilles réinitialisées ✓');
+}
 
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+// ── EDIT POSTUROLOGIE ──
+function renderEditPosto(cont){
+  // POSTO_TESTS is the live data — we store user customizations in S.postoCustom
+  if(!S.postoCustom) S.postoCustom = JSON.parse(JSON.stringify(POSTO_TESTS));
+  let html = '<p class="nota" style="margin-bottom:12px;">Ajoutez, renommez ou supprimez des sections et tests de posturologie. Les modifications s\'appliquent immédiatement.</p>';
 
-function exportPDF(){
-  const p=S.curId?S.patients.find(x=>x.id===S.curId):null;
-  if(S.screen!=='exam'||!p){showToast('Ouvrez un examen pour imprimer');return;}
-  let body=`<html><head><meta charset="utf-8"><title>${p.prenom} ${p.nom} – Examen podologique</title>
-  <style>body{font-family:Arial,sans-serif;font-size:13px;color:#222;padding:22px;max-width:780px;margin:0 auto;}
-  h1{font-size:20px;margin-bottom:4px;color:#111;}
-  .sub{color:#666;font-size:12px;margin-bottom:6px;}
-  h2{font-size:13px;background:#f0faf6;border-left:4px solid #1D9E75;padding:5px 10px;margin:14px 0 7px;border-radius:3px;color:#0F6E56;}
-  .row{margin-bottom:6px;display:flex;gap:8px;align-items:baseline;}
-  .lbl{font-weight:bold;color:#555;font-size:12px;min-width:170px;flex-shrink:0;}
-  .val{color:#222;font-size:13px;}
-  .tag{display:inline-block;background:#e1f5ee;color:#0f6e56;padding:2px 8px;border-radius:12px;font-size:11px;margin:2px 2px 2px 0;}
-  hr{border:none;border-top:1px solid #eee;margin:10px 0;}
-  .footer{font-size:11px;color:#aaa;margin-top:18px;text-align:right;}
-  @media print{@page{margin:1.5cm}button{display:none}}</style></head><body>`;
-  body+=`<h1>${p.prenom||''} ${p.nom||''}</h1>
-  <div class="sub">${p.ddn?'Né(e) le '+p.ddn+(age(p.ddn)?' ('+age(p.ddn)+')':''):''} ${p.tel?'· Tél : '+p.tel:''}</div>
-  ${p.adresse?`<div class="sub">${p.adresse}</div>`:''}
-  <hr>
-  <div class="sub" style="font-style:italic;">Examen podologique du ${new Date().toLocaleDateString('fr-FR')}</div><hr>`;
-  const d=S.examData;
+  Object.entries(S.postoCustom).forEach(([zk, zone]) => {
+    html += `<div class="esec">
+      <div class="eshd" onclick="togEsec('pc-${zk}')">
+        <i class="ti ${zone.icon}" style="color:var(--teal);font-size:14px;"></i>
+        <span class="estitle">${esc(zone.title)}</span>
+        <i class="ti ti-chevron-down collapse-icon open" id="ci-pc-${zk}"></i>
+        <button class="ib danger" onclick="event.stopPropagation();delPostoZone('${zk}')" style="margin-left:5px;"><i class="ti ti-trash"></i></button>
+      </div>
+      <div class="esbody" id="pc-${zk}">
+        <div class="fg" style="margin-bottom:10px;">
+          <div class="flbl">Nom de la zone</div>
+          <input class="eiinput" value="${esc(zone.title)}" oninput="upPostoZoneTitle('${zk}',this.value)" style="width:100%">
+        </div>`;
+
+    Object.entries(zone.subsections).forEach(([sub, tests]) => {
+      const subId = sub.replace(/[^a-z0-9]/gi,'_');
+      html += `<div style="margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <input class="eiinput" value="${esc(sub)}" oninput="upPostoSubName('${zk}','${sub}',this.value)" style="flex:1;">
+          <button class="ib danger" onclick="delPostoSub('${zk}','${sub}')"><i class="ti ti-trash"></i></button>
+        </div>`;
+      tests.forEach((t,ti) => {
+        html += `<div class="eir" style="margin-left:10px;">
+          <input class="eiinput" value="${esc(t.name)}" placeholder="Nom du test" oninput="upPostoTest('${zk}','${sub}',${ti},'name',this.value)">
+          <input class="eiinput" value="${esc(t.desc||'')}" placeholder="Description courte" oninput="upPostoTest('${zk}','${sub}',${ti},'desc',this.value)" style="flex:1.5;">
+          <button class="ib danger" onclick="delPostoTest('${zk}','${sub}',${ti})"><i class="ti ti-trash"></i></button>
+        </div>`;
+      });
+      html += `<button class="addbtn" style="margin-left:10px;margin-top:4px;" onclick="addPostoTest('${zk}','${sub}')"><i class="ti ti-plus"></i> Ajouter un test</button>`;
+      html += `</div>`;
+    });
+
+    html += `<button class="addbtn" onclick="addPostoSub('${zk}')"><i class="ti ti-plus"></i> Ajouter une sous-section</button>`;
+    html += `</div></div>`;
+  });
+
+  html += `<button class="secadd" onclick="addPostoZone()"><i class="ti ti-plus"></i> Ajouter une zone</button>`;
+  html += `<button class="savebtn" style="background:var(--teal);margin-top:12px;" onclick="savePostoCustom()"><i class="ti ti-device-floppy"></i> Enregistrer la posturologie</button>`;
+  cont.innerHTML = html;
+}
+
+function togEsec(id){const el=document.getElementById(id);if(!el)return;el.style.display=el.style.display==='none'?'':'none';}
+function upPostoZoneTitle(zk,v){if(S.postoCustom[zk])S.postoCustom[zk].title=v;}
+function upPostoSubName(zk,oldSub,newSub){
+  if(!S.postoCustom[zk])return;
+  const tests=S.postoCustom[zk].subsections[oldSub];
+  delete S.postoCustom[zk].subsections[oldSub];
+  S.postoCustom[zk].subsections[newSub]=tests;
+  renderEdit();
+}
+function upPostoTest(zk,sub,ti,field,v){if(S.postoCustom[zk]&&S.postoCustom[zk].subsections[sub])S.postoCustom[zk].subsections[sub][ti][field]=v;}
+function delPostoTest(zk,sub,ti){if(S.postoCustom[zk]&&S.postoCustom[zk].subsections[sub]){S.postoCustom[zk].subsections[sub].splice(ti,1);renderEdit();}}
+function addPostoTest(zk,sub){if(S.postoCustom[zk]&&S.postoCustom[zk].subsections[sub]){S.postoCustom[zk].subsections[sub].push({id:'t_'+Date.now(),name:'Nouveau test',desc:''});renderEdit();}}
+function delPostoSub(zk,sub){if(S.postoCustom[zk]){delete S.postoCustom[zk].subsections[sub];renderEdit();}}
+function addPostoSub(zk){if(S.postoCustom[zk]){const k='Nouvelle sous-section '+Date.now();S.postoCustom[zk].subsections[k]=[];renderEdit();}}
+function delPostoZone(zk){delete S.postoCustom[zk];renderEdit();}
+function addPostoZone(){const k='zone_'+Date.now();S.postoCustom[k]={title:'Nouvelle zone',icon:'ti-notes',subsections:{'Sous-section':[]}};renderEdit();}
+function savePostoCustom(){
+  // Apply customizations to POSTO_TESTS live object
+  Object.assign(POSTO_TESTS, S.postoCustom);
+  // Remove zones that were deleted
+  Object.keys(POSTO_TESTS).forEach(k=>{if(!S.postoCustom[k])delete POSTO_TESTS[k];});
+  DB.set('podo_posto_custom', S.postoCustom);
+  showToast('Posturologie enregistrée ✓');
+}
+
+// ── EDIT SPORT ──
+function renderEditSport(cont){
+  if(!S.sportCustom) S.sportCustom = JSON.parse(JSON.stringify(SPORT_TESTS));
+  let html = '<p class="nota" style="margin-bottom:12px;">Ajoutez, renommez ou supprimez des sections et tests sportifs.</p>';
+
+  Object.entries(S.sportCustom).forEach(([zk, zone]) => {
+    html += `<div class="esec">
+      <div class="eshd" onclick="togEsec('sc-${zk}')">
+        <i class="ti ${zone.icon}" style="color:var(--orange);font-size:14px;"></i>
+        <span class="estitle">${esc(zone.title)}</span>
+        <i class="ti ti-chevron-down collapse-icon open"></i>
+        <button class="ib danger" onclick="event.stopPropagation();delSportZone('${zk}')" style="margin-left:5px;"><i class="ti ti-trash"></i></button>
+      </div>
+      <div class="esbody" id="sc-${zk}">
+        <div class="fg" style="margin-bottom:10px;">
+          <div class="flbl">Nom de la section</div>
+          <input class="eiinput" value="${esc(zone.title)}" oninput="upSportZoneTitle('${zk}',this.value)" style="width:100%">
+        </div>`;
+
+    // Fields (anamnese_sport)
+    if(zone.fields){
+      html += `<div class="posto-subsection" style="color:var(--orange);">Champs</div>`;
+      zone.fields.forEach((f,fi) => {
+        html += `<div class="eir">
+          <input class="eiinput" value="${esc(f.label)}" placeholder="Nom du champ" oninput="upSportField('${zk}',${fi},this.value)">
+          <button class="ib danger" onclick="delSportField('${zk}',${fi})"><i class="ti ti-trash"></i></button>
+        </div>`;
+      });
+      html += `<button class="addbtn" onclick="addSportField('${zk}')"><i class="ti ti-plus"></i> Ajouter un champ</button>`;
+    }
+
+    // Subsections with tests
+    if(zone.subsections){
+      Object.entries(zone.subsections).forEach(([sub,tests]) => {
+        html += `<div style="margin-top:10px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <input class="eiinput" value="${esc(sub)}" oninput="upSportSubName('${zk}','${sub}',this.value)" style="flex:1;">
+            <button class="ib danger" onclick="delSportSub('${zk}','${sub}')"><i class="ti ti-trash"></i></button>
+          </div>`;
+        tests.forEach((t,ti) => {
+          html += `<div class="eir" style="margin-left:10px;">
+            <input class="eiinput" value="${esc(t.name)}" placeholder="Nom du test" oninput="upSportTest('${zk}','${sub}',${ti},'name',this.value)">
+            <input class="eiinput" value="${esc(t.desc||'')}" placeholder="Description" oninput="upSportTest('${zk}','${sub}',${ti},'desc',this.value)" style="flex:1.5;">
+            <button class="ib danger" onclick="delSportTest('${zk}','${sub}',${ti})"><i class="ti ti-trash"></i></button>
+          </div>`;
+        });
+        html += `<button class="addbtn" style="margin-left:10px;margin-top:4px;" onclick="addSportTest('${zk}','${sub}')"><i class="ti ti-plus"></i> Ajouter un test</button></div>`;
+      });
+      html += `<button class="addbtn" style="margin-top:6px;" onclick="addSportSub('${zk}')"><i class="ti ti-plus"></i> Ajouter une sous-section</button>`;
+    }
+
+    html += `</div></div>`;
+  });
+
+  html += `<button class="secadd" style="border-color:#E87A1D;background:var(--orange-light);color:var(--orange);" onclick="addSportZone()"><i class="ti ti-plus"></i> Ajouter une section</button>`;
+  html += `<button class="savebtn" style="background:var(--orange);margin-top:12px;" onclick="saveSportCustom()"><i class="ti ti-device-floppy"></i> Enregistrer le sport</button>`;
+  cont.innerHTML = html;
+}
+
+function upSportZoneTitle(zk,v){if(S.sportCustom[zk])S.sportCustom[zk].title=v;}
+function upSportField(zk,fi,v){if(S.sportCustom[zk]&&S.sportCustom[zk].fields)S.sportCustom[zk].fields[fi].label=v;}
+function delSportField(zk,fi){if(S.sportCustom[zk]&&S.sportCustom[zk].fields){S.sportCustom[zk].fields.splice(fi,1);renderEdit();}}
+function addSportField(zk){if(S.sportCustom[zk]){if(!S.sportCustom[zk].fields)S.sportCustom[zk].fields=[];S.sportCustom[zk].fields.push({id:'f_'+Date.now(),label:'Nouveau champ',type:'text'});renderEdit();}}
+function upSportSubName(zk,oldSub,newSub){if(!S.sportCustom[zk]||!S.sportCustom[zk].subsections)return;const tests=S.sportCustom[zk].subsections[oldSub];delete S.sportCustom[zk].subsections[oldSub];S.sportCustom[zk].subsections[newSub]=tests;renderEdit();}
+function upSportTest(zk,sub,ti,field,v){if(S.sportCustom[zk]&&S.sportCustom[zk].subsections&&S.sportCustom[zk].subsections[sub])S.sportCustom[zk].subsections[sub][ti][field]=v;}
+function delSportTest(zk,sub,ti){if(S.sportCustom[zk]&&S.sportCustom[zk].subsections&&S.sportCustom[zk].subsections[sub]){S.sportCustom[zk].subsections[sub].splice(ti,1);renderEdit();}}
+function addSportTest(zk,sub){if(S.sportCustom[zk]&&S.sportCustom[zk].subsections&&S.sportCustom[zk].subsections[sub]){S.sportCustom[zk].subsections[sub].push({id:'t_'+Date.now(),name:'Nouveau test',desc:'',type:'select_result'});renderEdit();}}
+function delSportSub(zk,sub){if(S.sportCustom[zk]&&S.sportCustom[zk].subsections){delete S.sportCustom[zk].subsections[sub];renderEdit();}}
+function addSportSub(zk){if(S.sportCustom[zk]){if(!S.sportCustom[zk].subsections)S.sportCustom[zk].subsections={};const k='Nouvelle sous-section';S.sportCustom[zk].subsections[k]=[];renderEdit();}}
+function delSportZone(zk){delete S.sportCustom[zk];renderEdit();}
+function addSportZone(){const k='zone_'+Date.now();S.sportCustom[k]={title:'Nouvelle section',icon:'ti-activity',subsections:{'Tests':[]}};renderEdit();}
+function saveSportCustom(){
+  Object.assign(SPORT_TESTS, S.sportCustom);
+  Object.keys(SPORT_TESTS).forEach(k=>{if(!S.sportCustom[k])delete SPORT_TESTS[k];});
+  DB.set('podo_sport_custom', S.sportCustom);
+  showToast('Analyse sportive enregistrée ✓');
+}
+// ── POSTUROLOGIE ──
+const POSTO_TESTS={
+  bassin:{title:'Bassin & Sacro-iliaque',icon:'ti-circle',subsections:{
+    'Tests ostéopathiques':[
+      {id:'gillet',name:'Test de Gillet',desc:'Mobilité sacro-iliaque en mise en charge'},
+      {id:'downing',name:'Test de Downing',desc:'Inégalité de longueur de MI fonctionnelle'},
+      {id:'faber',name:'Test FABER (Patrick)',desc:'Flexion Abduction Rotation Externe de hanche'},
+      {id:'fadir',name:'Test FADIR',desc:'Flexion Adduction Rotation Interne'},
+      {id:'piriforme',name:'Test du Piriforme',desc:'Contracture du muscle piriforme'},
+      {id:'compression_si',name:'Compression sacro-iliaque',desc:'Compression latérale des ailes iliaques'},
+      {id:'distraction_si',name:'Distraction sacro-iliaque',desc:'Distraction des ailes iliaques'},
+      {id:'gaenslen',name:'Test de Gaenslen',desc:'Cisaillement sacro-iliaque'},
+      {id:'thigh_thrust',name:'Thigh Thrust',desc:'Poussée postérieure sur le fémur'},
+    ],
+    'Tests podologiques':[
+      {id:'trendelenburg',name:'Test de Trendelenburg',desc:'Insuffisance du moyen fessier'},
+      {id:'appui_unipodal',name:'Appui unipodal 30s',desc:'Stabilité et compensation en charge'},
+      {id:'duchenne',name:'Signe de Duchenne',desc:'Inclinaison du tronc ipsilatérale'},
+      {id:'ineg_mi',name:'Inégalité de longueur MI',desc:'Mesure EIAS–malléole interne'},
+    ],
+  }},
+  genou:{title:'Genou',icon:'ti-angle',subsections:{
+    'Ligaments':[
+      {id:'lachman',name:'Test de Lachman',desc:'Laxité du LCA en légère flexion'},
+      {id:'tiroir_ant',name:'Tiroir antérieur',desc:'Laxité du LCA à 90° de flexion'},
+      {id:'tiroir_post',name:'Tiroir postérieur',desc:'Laxité du LCP à 90° de flexion'},
+      {id:'valgus_stress',name:'Stress en valgus',desc:'Intégrité du LLI'},
+      {id:'varus_stress',name:'Stress en varus',desc:'Intégrité du LLE'},
+      {id:'pivot_shift',name:'Pivot shift',desc:'Instabilité rotatoire antérieure'},
+    ],
+    'Ménisques':[
+      {id:'mcmurray',name:'Test de McMurray',desc:'Lésion méniscale en rotation/flexion'},
+      {id:'thessaly',name:'Test de Thessaly',desc:'Charge en rotation à 20°'},
+      {id:'apley',name:"Test d'Apley",desc:'Compression et distraction méniscale'},
+    ],
+    'Rotule & tendons':[
+      {id:'clarke',name:'Test de Clarke',desc:'Syndrome rotulien'},
+      {id:'signe_rabot',name:'Signe du rabot',desc:'Crépitations fémoro-patellaires'},
+      {id:'noble',name:'Test de Noble',desc:'Bandelette ilio-tibiale'},
+      {id:'ely',name:"Test d'Ely",desc:'Rétraction du droit fémoral'},
+    ],
+    'Axes':[
+      {id:'valgum_genou',name:'Genu valgum',desc:'Axe mécanique dévié en dedans'},
+      {id:'varum_genou',name:'Genu varum',desc:'Axe mécanique dévié en dehors'},
+      {id:'recurvatum',name:'Genu recurvatum',desc:'Hyperextension du genou'},
+      {id:'flexum',name:'Flexum de genou',desc:'Extension incomplète'},
+    ],
+  }},
+  pied:{title:'Pied & Cheville',icon:'ti-walk',subsections:{
+    'Stabilité cheville':[
+      {id:'tiroir_ant_chev',name:'Tiroir antérieur cheville',desc:'Laxité du LTFA'},
+      {id:'talar_tilt',name:'Talar tilt',desc:'Laxité du LCF'},
+      {id:'kleiger',name:'Test de Kleiger',desc:'Ligament deltoïdien et syndesmose'},
+      {id:'squeeze_test',name:'Squeeze test',desc:'Lésion de la syndesmose'},
+      {id:'cotton',name:'Test de Cotton',desc:'Translation latérale du talus'},
+    ],
+    'Tendon & muscles':[
+      {id:'thompson',name:'Test de Thompson',desc:"Rupture du tendon d'Achille"},
+      {id:'silfverskiold',name:'Test de Silfverskiöld',desc:'Rétraction gastrocnémien vs soléaire'},
+      {id:'jack',name:'Test de Jack',desc:'Mécanisme de Windlass'},
+      {id:'too_many_toes',name:'Too many toes sign',desc:'Tendon tibial postérieur'},
+      {id:'single_heel_rise',name:'Single heel rise',desc:'Insuffisance tibial postérieur'},
+    ],
+    'Morphologie & mobilité':[
+      {id:'rom_dorsiflex',name:'Dorsiflexion cheville',desc:'Amplitude en décharge (> 20°)'},
+      {id:'rom_plantarflex',name:'Flexion plantaire',desc:'Amplitude en décharge (> 40°)'},
+      {id:'rom_subtalar',name:'Mobilité sous-talienne',desc:'Valgus/varus calcanéen passif'},
+      {id:'navicular_drop',name:'Navicular drop test',desc:'Affaissement de la voûte en charge'},
+      {id:'heel_bisection',name:'Bisection calcanéenne',desc:'Axe du talon en charge'},
+    ],
+  }},
+};
+
+let postoData={};
+function loadPostoData(){const p=S.patients.find(x=>x.id===S.curId);postoData=(p&&p.postoData)?JSON.parse(JSON.stringify(p.postoData)):{};}
+function savePostoData(){const p=S.patients.find(x=>x.id===S.curId);if(!p)return;p.postoData=JSON.parse(JSON.stringify(postoData));save();showToast('Posturologie enregistrée ✓');}
+function setSide(id,side,val,btn){
+  if(!postoData[id])postoData[id]={};
+  if(postoData[id][side]===val){postoData[id][side]=null;btn.classList.remove('pos','neg');}
+  else{postoData[id][side]=val;btn.closest('.side-btns').querySelectorAll('.sbtn').forEach(b=>b.classList.remove('pos','neg'));btn.classList.add(val==='+'?'pos':'neg');}
+}
+function setPostoNote(id,val){if(!postoData[id])postoData[id]={};postoData[id].note=val;}
+
+function renderPosto(){
+  const p=S.patients.find(x=>x.id===S.curId);
+  const nop=document.getElementById('posto-nop'),cont=document.getElementById('posto-content');
+  if(!p){nop.style.display='';cont.innerHTML='';return;}
+  nop.style.display='none';loadPostoData();
+  let html=`<div class="pdetail-nav"><span class="pdetail-back" onclick="showScreen('patients')"><i class="ti ti-arrow-left" style="font-size:13px"></i> Patients</span><span style="color:var(--text3);">/</span><span style="font-size:13px;font-weight:600;">${esc(p.prenom)} ${esc(p.nom)}</span><span style="font-size:12px;color:var(--text3);"> — Posturologie</span></div>
+  <div class="legend-row"><div class="leg-item"><div class="leg-dot" style="background:var(--red-light);border-color:var(--red)"></div> Positif (+)</div><div class="leg-item"><div class="leg-dot" style="background:var(--teal-light);border-color:var(--teal)"></div> Négatif (−)</div></div>`;
+  Object.entries(POSTO_TESTS).forEach(([zk,zone])=>{
+    html+=`<div class="posto-section"><div class="posto-sec-title"><i class="ti ${zone.icon}"></i>${zone.title}</div>`;
+    Object.entries(zone.subsections).forEach(([sub,tests])=>{
+      html+=`<div class="posto-subsection">${sub}</div>`;
+      tests.forEach(t=>{
+        const d=postoData[t.id]||{};
+        html+=`<div class="test-row">
+          <div class="test-name">${esc(t.name)}<small>${esc(t.desc)}</small></div>
+          <div class="test-side"><div class="side-lbl">Gauche</div><div class="side-btns">
+            <button class="sbtn${d.G==='+'?' pos':''}" onclick="setSide('${t.id}','G','+',this)">+</button>
+            <button class="sbtn${d.G==='-'?' neg':''}" onclick="setSide('${t.id}','G','-',this)">−</button>
+          </div></div>
+          <div class="test-side"><div class="side-lbl">Droit</div><div class="side-btns">
+            <button class="sbtn${d.D==='+'?' pos':''}" onclick="setSide('${t.id}','D','+',this)">+</button>
+            <button class="sbtn${d.D==='-'?' neg':''}" onclick="setSide('${t.id}','D','-',this)">−</button>
+          </div></div>
+          <div class="test-note-wrap"><textarea class="test-note" rows="1" placeholder="Note…" oninput="setPostoNote('${t.id}',this.value)">${esc(d.note||'')}</textarea></div>
+        </div>`;
+      });
+    });
+    html+=`</div>`;
+  });
+  html+=`<button class="savebtn" onclick="savePostoData()"><i class="ti ti-device-floppy"></i> Enregistrer la posturologie</button>`;
+  cont.innerHTML=html;
+}
+
+// ── SPORT ──
+const SPORT_TESTS={
+  anamnese_sport:{title:"Anamnèse sportive",icon:"ti-run",fields:[
+    {id:'sport_pratique',label:"Sport(s) pratiqué(s)",type:'text'},
+    {id:'niveau',label:"Niveau de pratique",type:'radio',options:['Loisir','Compétition régionale','Compétition nationale','Élite / Pro']},
+    {id:'freq_entrainement',label:"Fréquence d'entraînement",type:'radio',options:['1–2x/sem','3–4x/sem','5–6x/sem','Quotidien']},
+    {id:'volume_hebdo',label:"Volume hebdomadaire (h/sem)",type:'text'},
+    {id:'blessures_ant',label:"Blessures antérieures",type:'textarea'},
+    {id:'douleur_sport',label:"Douleur à l'effort",type:'radio',options:['Absente','Début effort','Effort soutenu','Fin effort','Repos post-effort']},
+    {id:'chaussures_sport',label:"Chaussures de sport",type:'text'},
+    {id:'semelles_sport',label:"Semelles orthopédiques",type:'radio',options:['Aucune','Préfabriquées','Sur mesure']},
+  ]},
+  fms:{title:"FMS — Functional Movement Screen",icon:"ti-activity",subsections:{
+    'Tests (score 0–3)':[
+      {id:'fms_squat',name:'Deep Squat',desc:'Mobilité globale hanches/genoux/chevilles',type:'score',max:3,norm:'≥ 2',unit:'/3'},
+      {id:'fms_hurdle',name:'Hurdle Step',desc:'Stabilité unipodiale + mobilité hanche',type:'score_bilateral',max:3,norm:'≥ 2',unit:'/3'},
+      {id:'fms_lunge',name:'Inline Lunge',desc:'Stabilité + mobilité en fente',type:'score_bilateral',max:3,norm:'≥ 2',unit:'/3'},
+      {id:'fms_shoulder',name:'Shoulder Mobility',desc:'Mobilité scapulo-humérale',type:'score_bilateral',max:3,norm:'≥ 2',unit:'/3'},
+      {id:'fms_leg_raise',name:'Active Straight Leg Raise',desc:'Flexibilité ischio-jambiers',type:'score_bilateral',max:3,norm:'≥ 2',unit:'/3'},
+      {id:'fms_push_up',name:'Trunk Stability Push-Up',desc:'Stabilité du tronc',type:'score',max:3,norm:'≥ 2',unit:'/3'},
+      {id:'fms_rotation',name:'Rotary Stability',desc:'Stabilité rotatoire quadrupédie',type:'score_bilateral',max:3,norm:'≥ 2',unit:'/3'},
+    ],
+    'Score global':[
+      {id:'fms_total',name:'Score total FMS',desc:'Seuil de risque < 14',type:'score',max:21,norm:'≥ 14',unit:'/21'},
+      {id:'fms_asymetrie',name:'Asymétrie notable (≥ 1 pt)',desc:'Différence G/D sur un test',type:'select_result'},
+    ],
+  }},
+  force_stabilite:{title:"Force & Stabilité",icon:"ti-barbell",subsections:{
+    'Tests unipodaux':[
+      {id:'slst',name:'Single Leg Squat Test',desc:'Contrôle moteur — valgus dynamique',type:'bilateral_result'},
+      {id:'slst_reps',name:'SLS — répétitions',desc:'Normal > 15 reps',type:'score_bilateral',max:30,norm:'> 15',unit:'reps'},
+      {id:'y_balance_ant',name:'Y-Balance antérieur',desc:'Équilibre dynamique reach antérieur',type:'score_bilateral',max:120,norm:'> 90% contro',unit:'cm'},
+      {id:'y_balance_pm',name:'Y-Balance postéro-médial',desc:'Reach postéro-médial',type:'score_bilateral',max:120,norm:'',unit:'cm'},
+      {id:'y_balance_pl',name:'Y-Balance postéro-latéral',desc:'Reach postéro-latéral',type:'score_bilateral',max:120,norm:'',unit:'cm'},
+    ],
+    'Tests de saut':[
+      {id:'cmj',name:'Counter Movement Jump',desc:'Puissance explosive MI',type:'score',max:80,norm:'H>35cm / F>25cm',unit:'cm'},
+      {id:'hop_test',name:'Single Hop Test',desc:'Saut unipodal — LSI > 90%',type:'score_bilateral',max:300,norm:'LSI > 90%',unit:'cm'},
+      {id:'triple_hop',name:'Triple Hop Test',desc:'Hop × 3 — endurance explosive',type:'score_bilateral',max:600,norm:'LSI > 90%',unit:'cm'},
+      {id:'lsi_hop',name:'LSI (Limb Symmetry Index)',desc:'(Lésé/sain) × 100 — retour sport > 90%',type:'score',max:100,norm:'≥ 90%',unit:'%'},
+    ],
+    'Gainage':[
+      {id:'plank',name:'Plank test',desc:'Endurance gainage antérieur',type:'score',max:300,norm:'> 60s',unit:'sec'},
+      {id:'side_plank_g',name:'Side Plank gauche',desc:'Gainage latéral gauche',type:'score',max:120,norm:'> 30s',unit:'sec'},
+      {id:'side_plank_d',name:'Side Plank droit',desc:'Gainage latéral droit',type:'score',max:120,norm:'> 30s',unit:'sec'},
+    ],
+  }},
+  course_running:{title:"Analyse course & Running",icon:"ti-shoe",subsections:{
+    'Paramètres':[
+      {id:'attaque_course',name:"Type d'attaque",desc:'Attaque du pas en course',type:'radio_field',options:['Talon (RFS)','Médio-pied (MFS)','Avant-pied (FFS)']},
+      {id:'cadence',name:'Cadence de course',desc:'Optimal ~180 pas/min',type:'score',max:220,norm:'~180',unit:'pas/min'},
+      {id:'oscillation',name:'Oscillation verticale',desc:'Amplitude verticale CDM',type:'radio_field',options:['Normale','Excessive','Réduite']},
+      {id:'cross_over',name:'Cross-over pattern',desc:'Croisement ligne médiane',type:'select_result'},
+      {id:'valgus_dynamique',name:'Valgus dynamique genou',desc:'Effondrement médial à l\'appui',type:'bilateral_result'},
+      {id:'pronation_exces',name:'Pronation excessive',desc:'Hyperpronation sous-talienne',type:'bilateral_result'},
+    ],
+    'Flexibilité':[
+      {id:'rom_achille',name:'Chaîne postérieure',desc:'Distance doigts-sol',type:'score',max:40,norm:'< 20cm',unit:'cm'},
+      {id:'thomas_test',name:'Test de Thomas',desc:'Rétraction psoas-iliaque',type:'bilateral_result'},
+      {id:'ober_test',name:"Test d'Ober",desc:'Rétraction TFL / bandelette IT',type:'bilateral_result'},
+    ],
+  }},
+  retour_sport:{title:"Retour au sport",icon:"ti-trophy",subsections:{
+    'Critères fonctionnels':[
+      {id:'rts_douleur',name:"Absence de douleur à l'effort",desc:'EVA = 0',type:'select_result'},
+      {id:'rts_gonflement',name:'Absence de gonflement',desc:'Pas d\'épanchement résiduel',type:'select_result'},
+      {id:'rts_rom',name:'Amplitudes complètes',desc:'ROM symétrique au côté sain',type:'select_result'},
+      {id:'rts_force',name:'Force ≥ 90% controlatéral',desc:'Isométrique ou isocinétique',type:'select_result'},
+      {id:'rts_lsi',name:'LSI Hop ≥ 90%',desc:'Limb Symmetry Index',type:'select_result'},
+      {id:'rts_fms',name:'FMS ≥ 14 / sans asymétrie',desc:'Score au-dessus du seuil',type:'select_result'},
+      {id:'rts_psycho',name:'Confiance psychologique',desc:'ACL-RSI ou équivalent',type:'radio_field',options:['Non évaluée','Insuffisante','Partielle','Complète']},
+    ],
+    'Décision':[
+      {id:'rts_decision',name:'Décision',desc:'',type:'radio_field',options:['Non autorisé','Retour progressif','Retour autorisé']},
+      {id:'rts_notes',name:'Notes / protocole de reprise',desc:'',type:'textarea_field'},
+    ],
+  }},
+};
+
+let sportData={};
+function loadSportData(){const p=S.patients.find(x=>x.id===S.curId);sportData=(p&&p.sportData)?JSON.parse(JSON.stringify(p.sportData)):{};}
+function saveSportData(){const p=S.patients.find(x=>x.id===S.curId);if(!p)return;p.sportData=JSON.parse(JSON.stringify(sportData));save();showToast('Analyse sportive enregistrée ✓');}
+function setSportVal(id,v){sportData[id]=v;}
+function setSportRadio(id,v,el){sportData[id]=v;el.closest('.rg').querySelectorAll('.ri').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');}
+function setSportSelect(id,v,el){sportData[id]=v;el.classList.remove('ok','nok','lim');if(v==='OK')el.classList.add('ok');else if(v==='NOK')el.classList.add('nok');else if(v==='Limité')el.classList.add('lim');}
+function setSportSideVal(id,side,v){if(!sportData[id])sportData[id]={};sportData[id][side]=v;}
+function setSportBilRes(id,side,v,btn){
+  if(!sportData[id])sportData[id]={};
+  if(sportData[id][side]===v){sportData[id][side]=null;btn.classList.remove('pos','neg');}
+  else{sportData[id][side]=v;btn.closest('.side-btns').querySelectorAll('.sbtn').forEach(b=>b.classList.remove('pos','neg'));btn.classList.add(v==='+'?'pos':'neg');}
+}
+
+function renderSport(){
+  const p=S.patients.find(x=>x.id===S.curId);
+  const nop=document.getElementById('sport-nop'),cont=document.getElementById('sport-content');
+  if(!p){nop.style.display='';cont.innerHTML='';return;}
+  nop.style.display='none';loadSportData();
+  let html=`<div class="pdetail-nav"><span class="pdetail-back" onclick="showScreen('patients')"><i class="ti ti-arrow-left" style="font-size:13px"></i> Patients</span><span style="color:var(--text3);">/</span><span style="font-size:13px;font-weight:600;">${esc(p.prenom)} ${esc(p.nom)}</span><span style="font-size:12px;color:var(--text3);"> — Analyse sportive</span></div>`;
+  Object.entries(SPORT_TESTS).forEach(([zk,zone])=>{
+    html+=`<div class="sport-section"><div class="sport-sec-title"><i class="ti ${zone.icon}"></i>${zone.title}</div>`;
+    if(zone.fields){
+      zone.fields.forEach(f=>{
+        const v=sportData[f.id];
+        html+=`<div style="margin-bottom:12px;"><div class="flbl" style="margin-bottom:5px;">${esc(f.label)}</div>`;
+        if(f.type==='text') html+=`<input class="finput" value="${esc(v||'')}" placeholder="…" oninput="setSportVal('${f.id}',this.value)">`;
+        else if(f.type==='textarea') html+=`<textarea class="finput" oninput="setSportVal('${f.id}',this.value)">${esc(v||'')}</textarea>`;
+        else if(f.type==='radio'){
+          html+=`<div class="rg">`;
+          (f.options||[]).forEach(o=>{const s=o.replace(/\\/g,'\\\\').replace(/'/g,"\\'");html+=`<div class="ri${v===o?' sel':''}" onclick="setSportRadio('${f.id}','${s}',this)">${esc(o)}</div>`;});
+          html+=`</div>`;
+        }
+        html+=`</div>`;
+      });
+    }
+    if(zone.subsections){
+      Object.entries(zone.subsections).forEach(([sub,tests])=>{
+        html+=`<div class="sport-subsection">${sub}</div>`;
+        tests.forEach(t=>{
+          const v=sportData[t.id];
+          const rowClass=t.type==='score_bilateral'||t.type==='bilateral_result'?'sport-test-row':'score-row';
+          html+=`<div class="${rowClass}"><div class="test-name">${esc(t.name)}<small>${esc(t.desc||'')}</small>${t.norm?`<small style="color:var(--teal);">Norme : ${esc(t.norm)}</small>`:''}</div>`;
+          if(t.type==='score'){
+            html+=`<div style="display:flex;flex-direction:column;align-items:center;gap:2px;"><input class="score-input" type="number" min="0" max="${t.max}" value="${esc(v||'')}" placeholder="—" oninput="setSportVal('${t.id}',this.value)"><div class="score-unit">${esc(t.unit)}</div></div>`;
+          } else if(t.type==='score_bilateral'){
+            const vg=(v&&v.G)||'';const vd=(v&&v.D)||'';
+            html+=`<div class="test-side"><div class="side-lbl">Gauche</div><input class="score-input" type="number" min="0" max="${t.max}" value="${esc(vg)}" placeholder="—" oninput="setSportSideVal('${t.id}','G',this.value)"><div class="score-unit">${esc(t.unit)}</div></div>`;
+            html+=`<div class="test-side"><div class="side-lbl">Droit</div><input class="score-input" type="number" min="0" max="${t.max}" value="${esc(vd)}" placeholder="—" oninput="setSportSideVal('${t.id}','D',this.value)"><div class="score-unit">${esc(t.unit)}</div></div>`;
+          } else if(t.type==='bilateral_result'){
+            const vg=(v&&v.G)||null;const vd=(v&&v.D)||null;
+            html+=`<div class="test-side"><div class="side-lbl">Gauche</div><div class="side-btns"><button class="sbtn${vg==='+'?' pos':''}" onclick="setSportBilRes('${t.id}','G','+',this)">+</button><button class="sbtn${vg==='-'?' neg':''}" onclick="setSportBilRes('${t.id}','G','-',this)">−</button></div></div>`;
+            html+=`<div class="test-side"><div class="side-lbl">Droit</div><div class="side-btns"><button class="sbtn${vd==='+'?' pos':''}" onclick="setSportBilRes('${t.id}','D','+',this)">+</button><button class="sbtn${vd==='-'?' neg':''}" onclick="setSportBilRes('${t.id}','D','-',this)">−</button></div></div>`;
+          } else if(t.type==='select_result'){
+            html+=`<select class="result-select${v==='OK'?' ok':v==='NOK'?' nok':v==='Limité'?' lim':''}" onchange="setSportSelect('${t.id}',this.value,this)"><option value="">—</option><option${v==='OK'?' selected':''}>OK</option><option${v==='NOK'?' selected':''}>NOK</option><option${v==='Limité'?' selected':''}>Limité</option></select>`;
+          } else if(t.type==='radio_field'){
+            html+=`<div class="rg">`;
+            (t.options||[]).forEach(o=>{const s=o.replace(/\\/g,'\\\\').replace(/'/g,"\\'");html+=`<div class="ri${v===o?' sel':''}" onclick="setSportRadio('${t.id}','${s}',this)">${esc(o)}</div>`;});
+            html+=`</div>`;
+          } else if(t.type==='textarea_field'){
+            html+=`<textarea class="finput" oninput="setSportVal('${t.id}',this.value)">${esc(v||'')}</textarea>`;
+          }
+          html+=`</div>`;
+        });
+      });
+    }
+    html+=`</div>`;
+  });
+  html+=`<button class="savebtn" style="background:var(--orange);" onclick="saveSportData()"><i class="ti ti-device-floppy"></i> Enregistrer l'analyse sportive</button>`;
+  cont.innerHTML=html;
+}
+
+// ── CONCLUSION ──
+function collectProblems(){
+  const p=S.patients.find(x=>x.id===S.curId);if(!p)return[];
+  const problems=[];
+  const examD=S.examData;
+  const neutrals=['Neutre','Normale','Normal','Normaux','Pied normal','Alignés'];
   S.tpl.forEach(sec=>{
-    const hasData=sec.items.some(it=>{const v=d[it.id];return v&&(!Array.isArray(v)||v.length>0)&&v!=='';});
-    if(!hasData)return;
-    body+=`<h2>${sec.title}</h2>`;
     sec.items.forEach(it=>{
-      const v=d[it.id];if(!v||v===''||(Array.isArray(v)&&!v.length))return;
-      body+=`<div class="row"><div class="lbl">${it.label}</div><div class="val">`;
-      if(Array.isArray(v))body+=v.map(x=>`<span class="tag">${x}</span>`).join('');
-      else body+=`<span>${v}</span>`;
-      body+=`</div></div>`;
+      const v=examD[it.id];
+      if(!v||v===''||(Array.isArray(v)&&!v.length))return;
+      if(it.type==='radio'&&!neutrals.includes(v)) problems.push({zone:sec.title,label:it.label,val:v,side:null,severity:'anomalie'});
+      if(it.type==='checks'&&Array.isArray(v)) v.forEach(item=>problems.push({zone:sec.title,label:it.label,val:item,side:null,severity:'pathologie'}));
     });
   });
-  body+=`<hr><div class="footer">PodoExamen · ${new Date().toLocaleDateString('fr-FR')}</div></body></html>`;
+  const postoD=p.postoData||{};
+  Object.entries(POSTO_TESTS).forEach(([zk,zone])=>{
+    Object.entries(zone.subsections).forEach(([sub,tests])=>{
+      tests.forEach(t=>{
+        const d=postoD[t.id];if(!d)return;
+        ['G','D'].forEach(side=>{if(d[side]==='+') problems.push({zone:zone.title,label:t.name,val:'Positif',side:side==='G'?'Gauche':'Droit',severity:'test_positif',note:d.note||''});});
+      });
+    });
+  });
+  const sportD=p.sportData||{};
+  Object.entries(SPORT_TESTS).forEach(([zk,zone])=>{
+    if(zone.subsections) Object.entries(zone.subsections).forEach(([sub,tests])=>{
+      tests.forEach(t=>{
+        const v=sportD[t.id];if(!v)return;
+        if(t.type==='select_result'&&v==='NOK') problems.push({zone:'Sport — '+zone.title,label:t.name,val:'NOK',side:null,severity:'sport_nok'});
+        if(t.type==='select_result'&&v==='Limité') problems.push({zone:'Sport — '+zone.title,label:t.name,val:'Limité',side:null,severity:'sport_limite'});
+        if(t.type==='bilateral_result'&&typeof v==='object') ['G','D'].forEach(side=>{if(v[side]==='+') problems.push({zone:'Sport — '+zone.title,label:t.name,val:'Positif',side:side==='G'?'Gauche':'Droit',severity:'sport_nok'});});
+        if(t.id==='fms_total'&&v&&Number(v)<14) problems.push({zone:'Sport — FMS',label:'Score FMS insuffisant',val:v+'/21 (seuil < 14)',side:null,severity:'sport_nok'});
+      });
+    });
+  });
+  return problems;
+}
+
+function renderConclusion(){
+  const p=S.patients.find(x=>x.id===S.curId);
+  const nop=document.getElementById('concl-nop'),cont=document.getElementById('concl-content');
+  if(!p){nop.style.display='';cont.innerHTML='';return;}
+  nop.style.display='none';
+  if(Object.keys(S.examData).length===0&&p.exams&&p.exams.length) S.examData=JSON.parse(JSON.stringify(p.exams[p.exams.length-1].data));
+  loadSportData();loadPostoData();
+  const problems=collectProblems();
+  const pathologies=problems.filter(x=>x.severity==='pathologie');
+  const anomalies=problems.filter(x=>x.severity==='anomalie');
+  const testsPos=problems.filter(x=>x.severity==='test_positif');
+  const sportNok=problems.filter(x=>x.severity==='sport_nok');
+  const sportLim=problems.filter(x=>x.severity==='sport_limite');
+
+  const block=(title,icon,color,items,empty)=>{
+    let b=`<div class="concl-block"><div class="concl-title" style="color:${color}"><i class="ti ${icon}" style="color:${color}"></i>${title} <span style="font-size:12px;font-weight:400;color:var(--text3);">(${items.length})</span></div>`;
+    if(!items.length) b+=`<div class="concl-empty">${empty}</div>`;
+    else items.forEach(it=>{b+=`<div class="concl-item"><div class="concl-dot" style="background:${color}"></div><div class="concl-zone">${esc(it.zone)}</div><div class="concl-val"><strong>${esc(it.label)}</strong> — ${esc(it.val)}${it.note?` <em style="color:var(--text3);font-size:11px;">(${esc(it.note)})</em>`:''}</div>${it.side?`<span class="concl-side">${it.side}</span>`:''}</div>`;});
+    b+=`</div>`;return b;
+  };
+
+  let html=`<div class="pdetail-nav"><span class="pdetail-back" onclick="showScreen('patients')"><i class="ti ti-arrow-left" style="font-size:13px"></i> Patients</span><span style="color:var(--text3);">/</span><span style="font-size:13px;font-weight:600;">${esc(p.prenom)} ${esc(p.nom)}</span><span style="font-size:12px;color:var(--text3);"> — Conclusion</span></div>`;
+  if(!problems.length) html+=`<div class="concl-empty" style="padding:30px;">Aucun élément problématique détecté. Remplissez d'abord l'examen, la posturologie et l'analyse sportive.</div>`;
+  html+=block('Pathologies identifiées','ti-alert-triangle','var(--red)',pathologies,'Aucune pathologie renseignée');
+  html+=block('Anomalies & déviations','ti-alert-circle','var(--orange)',anomalies,'Aucune anomalie renseignée');
+  html+=block('Tests positifs (posturologie)','ti-stethoscope','#7C3AED',testsPos,'Aucun test positif');
+  html+=block('Tests sportifs NOK','ti-run','var(--red)',sportNok,'Aucun test NOK');
+  html+=block('Tests sportifs limités','ti-run','var(--orange)',sportLim,'Aucun test limité');
+  html+=`<div class="concl-block"><div class="concl-title" style="color:var(--teal)"><i class="ti ti-pencil" style="color:var(--teal)"></i>Commentaires & orientations thérapeutiques</div>
+    <textarea class="note-textarea" placeholder="Synthèse clinique, orientations, prescriptions…" oninput="saveConclusionNote(this.value)">${esc(p.conclusionNote||'')}</textarea></div>`;
+  html+=`<button class="pdf-btn" onclick="exportMedicalPDF()"><i class="ti ti-file-text"></i> Générer le compte rendu PDF médical</button>`;
+  cont.innerHTML=html;
+}
+
+function saveConclusionNote(val){const p=S.patients.find(x=>x.id===S.curId);if(p){p.conclusionNote=val;save();}}
+
+// ── EXPORT PDF MÉDICAL ──
+function exportMedicalPDF(){
+  const p=S.patients.find(x=>x.id===S.curId);if(!p){showToast('Aucun patient sélectionné');return;}
+  if(Object.keys(S.examData).length===0&&p.exams&&p.exams.length) S.examData=JSON.parse(JSON.stringify(p.exams[p.exams.length-1].data));
+  loadSportData();loadPostoData();
+  const problems=collectProblems();
+  const today=new Date().toLocaleDateString('fr-FR');
+  const examD=S.examData;
+
+  const pdfSec=(title,color,items)=>{
+    if(!items.length)return'';
+    let s=`<h3 style="font-size:13px;color:${color};border-left:4px solid ${color};padding:4px 10px;margin:14px 0 7px;background:#fafafa;border-radius:3px;">${title}</h3>`;
+    items.forEach(it=>{s+=`<div style="display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid #f5f5f5;"><div style="font-size:11px;color:#888;min-width:120px;flex-shrink:0;">${it.zone}</div><div style="flex:1;font-size:13px;"><strong>${it.label}</strong> — ${it.val}${it.note?` <em style='color:#999;font-size:11px;'>(${it.note})</em>`:''}</div>${it.side?`<div style="font-size:11px;font-weight:600;padding:1px 6px;border-radius:10px;background:#f0f0f0;color:#555;">${it.side}</div>`:''}</div>`;});
+    return s;
+  };
+
+  let body=`<html><head><meta charset="utf-8"><title>Compte rendu — ${p.prenom} ${p.nom}</title>
+  <style>body{font-family:Arial,sans-serif;font-size:13px;color:#222;margin:0;}
+  .page{max-width:780px;margin:0 auto;padding:28px 32px;}
+  .hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1D9E75;padding-bottom:12px;margin-bottom:16px;}
+  .hdr h1{font-size:19px;color:#1D9E75;margin:0 0 3px;}.hdr p{font-size:12px;color:#666;margin:2px 0;}
+  .hdr-r{text-align:right;font-size:12px;color:#666;}
+  .pbox{background:#f8fffe;border:.5px solid #9FE1CB;border-radius:5px;padding:11px 14px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:3px 18px;}
+  .pf{font-size:12px;color:#444;}.pf strong{color:#111;}
+  h2{font-size:14px;color:#1D9E75;border-bottom:1.5px solid #1D9E75;padding-bottom:4px;margin:18px 0 9px;}
+  .erow{display:flex;gap:8px;padding:3px 0;border-bottom:1px solid #f5f5f5;font-size:13px;}
+  .elbl{color:#666;min-width:150px;flex-shrink:0;font-size:12px;}.eval{color:#222;flex:1;}
+  .etitle{font-size:11px;font-weight:bold;color:#555;text-transform:uppercase;letter-spacing:.04em;margin:10px 0 4px;}
+  .tag{display:inline-block;background:#e1f5ee;color:#0f6e56;padding:1px 7px;border-radius:10px;font-size:11px;margin:1px;}
+  .concl{background:#f8fffe;border-left:4px solid #1D9E75;padding:10px 14px;margin:12px 0;border-radius:3px;font-size:13px;line-height:1.7;}
+  .sig{margin-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .sigbox{border-top:1px solid #ccc;padding-top:7px;font-size:12px;color:#666;}
+  .footer{text-align:center;font-size:11px;color:#bbb;margin-top:22px;padding-top:8px;border-top:1px solid #eee;}
+  hr{border:none;border-top:1px solid #eee;margin:8px 0;}
+  @media print{@page{margin:1.5cm}}</style></head><body><div class="page">`;
+
+  body+=`<div class="hdr"><div><h1>Compte Rendu Podologique</h1><p>Bilan clinique complet — Podologie & Posturologie</p></div><div class="hdr-r"><div style="font-size:14px;font-weight:bold;color:#333;">${today}</div><p>PodoExamen</p></div></div>`;
+  body+=`<div class="pbox"><div class="pf"><strong>Nom :</strong> ${p.nom||'—'}</div><div class="pf"><strong>Prénom :</strong> ${p.prenom||'—'}</div><div class="pf"><strong>Date de naissance :</strong> ${p.ddn||'—'}${age(p.ddn)?' ('+age(p.ddn)+')':''}</div><div class="pf"><strong>Téléphone :</strong> ${p.tel||'—'}</div><div class="pf" style="grid-column:1/-1"><strong>Adresse :</strong> ${p.adresse||'—'}</div></div>`;
+
+  if(problems.length){
+    body+=`<h2>⚠️ Éléments cliniques significatifs</h2>`;
+    body+=pdfSec('Pathologies identifiées','#c0392b',problems.filter(x=>x.severity==='pathologie'));
+    body+=pdfSec('Anomalies & déviations','#e65100',problems.filter(x=>x.severity==='anomalie'));
+    body+=pdfSec('Tests posturologiques positifs','#7C3AED',problems.filter(x=>x.severity==='test_positif'));
+    body+=pdfSec('Tests sportifs insuffisants / limités','#e65100',problems.filter(x=>['sport_nok','sport_limite'].includes(x.severity)));
+  }
+
+  // Exam summary
+  const examSections=[];
+  S.tpl.forEach(sec=>{const items=[];sec.items.forEach(it=>{const v=examD[it.id];if(!v||v===''||(Array.isArray(v)&&!v.length))return;items.push({label:it.label,val:Array.isArray(v)?v.join(', '):v});});if(items.length)examSections.push({title:sec.title,items});});
+  if(examSections.length){
+    body+=`<h2>Bilan de l'examen clinique</h2>`;
+    examSections.forEach(s=>{body+=`<div class="etitle">${s.title}</div>`;s.items.forEach(it=>{body+=`<div class="erow"><div class="elbl">${it.label}</div><div class="eval">`;if(it.val.includes(','))body+=it.val.split(',').map(v=>`<span class="tag">${v.trim()}</span>`).join('');else body+=it.val;body+=`</div></div>`;});});
+  }
+
+  // Sport summary
+  const sportSections=[];
+  Object.entries(SPORT_TESTS).forEach(([zk,zone])=>{
+    const items=[];
+    if(zone.fields)zone.fields.forEach(f=>{const v=sportData[f.id];if(v)items.push({label:f.label,val:String(v)});});
+    if(zone.subsections)Object.entries(zone.subsections).forEach(([sub,tests])=>{tests.forEach(t=>{const v=sportData[t.id];if(!v)return;if(typeof v==='object'&&(v.G||v.D))items.push({label:t.name,val:`G: ${v.G||'—'} / D: ${v.D||'—'}`});else if(typeof v==='string'||typeof v==='number')items.push({label:t.name,val:String(v)+' '+(t.unit||'')});});});
+    if(items.length)sportSections.push({title:zone.title,items});
+  });
+  if(sportSections.length){
+    body+=`<h2>Analyse sportive</h2>`;
+    sportSections.forEach(s=>{body+=`<div class="etitle">${s.title}</div>`;s.items.forEach(it=>{body+=`<div class="erow"><div class="elbl">${it.label}</div><div class="eval">${it.val}</div></div>`;});});
+  }
+
+  if(p.conclusionNote){body+=`<h2>Commentaires & orientations thérapeutiques</h2><div class="concl">${p.conclusionNote.replace(/\n/g,'<br>')}</div>`;}
+
+  const trt=examD['trt_prop'],notes=examD['notes_plan'],suivi=examD['suivi'];
+  if((trt&&trt.length)||notes||suivi){
+    body+=`<h2>Plan de traitement</h2>`;
+    if(trt&&trt.length)body+=`<div class="erow"><div class="elbl">Traitement proposé</div><div class="eval">${trt.map(v=>`<span class="tag">${v}</span>`).join('')}</div></div>`;
+    if(notes)body+=`<div class="erow"><div class="elbl">Prescription</div><div class="eval">${notes}</div></div>`;
+    if(suivi)body+=`<div class="erow"><div class="elbl">Prochain RDV</div><div class="eval">${suivi}</div></div>`;
+  }
+
+  body+=`<div class="sig"><div class="sigbox">Praticien :<br><br></div><div class="sigbox">Cachet :<br><br></div></div>`;
+  body+=`<div class="footer">Document généré par PodoExamen · ${today} · Confidentiel — usage médical</div></div></body></html>`;
+
   const w=window.open('','_blank');
-  if(w){w.document.write(body);w.document.close();w.focus();setTimeout(()=>w.print(),600);}
+  if(w){w.document.write(body);w.document.close();w.focus();setTimeout(()=>w.print(),700);}
   else showToast('Autorisez les popups pour imprimer');
 }
 
-renderPatients();
+// ── EXPORT PDF SIMPLE ──
+function exportPDF(){
+  const p=S.curId?S.patients.find(x=>x.id===S.curId):null;
+  if(S.screen!=='exam'||!p){showToast('Ouvrez un examen pour imprimer');return;}
+  exportMedicalPDF();
+}
+
+
+function zoneColor(F, zones, alpha){
+  for(const z of zones){if(F[z]&&F[z].length){const c=F[z][0].color;return hexAlpha(c,alpha||0.35);}}
+  return 'transparent';
+}
+function zoneStroke(F, zones){
+  for(const z of zones){if(F[z]&&F[z].length)return F[z][0].color;}
+  return 'none';
+}
+function hexAlpha(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;}
+function hasFinding(F,...zones){return zones.some(z=>F[z]&&F[z].length>0);}
+
+function buildAnatomySVG(F, view){
+  // Realistic human silhouette SVG - medical style
+  // view: 'front' | 'back' | 'lateral'
+  const d = S.examData;
+  const gnAx = d['genou'] || 'Neutre';
+  const voute = d['voute'] || '';
+  const talon = d['talon'] || 'Neutre';
+  const has = (...zones) => zones.some(z => F[z] && F[z].length > 0);
+  const zf = (...zones) => { for(const z of zones){ if(F[z]&&F[z].length){ const c=F[z][0].color; const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16); return `rgba(${r},${g},${b},0.38)`; }} return 'none'; };
+  const zs = (...zones) => { for(const z of zones){ if(F[z]&&F[z].length) return F[z][0].color; } return 'none'; };
+  const zw = (...zones) => has(...zones) ? '2.5' : '0';
+
+  const hasFlexum = F['genou_lat'] && F['genou_lat'].some(x => x.label.includes('Flexum'));
+  const hasRecurv = F['genou_lat'] && F['genou_lat'].some(x => x.label.includes('Recurv'));
+  const hasHV = has('hallux_valgus');
+  const gvOff = gnAx==='Valgum' ? 9 : gnAx==='Varum' ? -8 : 0;
+  const heelTilt = talon==='Valgus' ? 8 : talon==='Varus' ? -8 : 0;
+  const archDip = voute==='Pied plat' ? 6 : voute==='Pied creux' ? -8 : 0;
+  const flexShift = hasFlexum ? 13 : hasRecurv ? -10 : 0;
+  const hvAngle = hasHV ? 18 : 0;
+
+  // Color zones
+  const cBassin = has('bassin','hanche') ? zf('bassin','hanche') : 'none';
+  const sBassin = has('bassin','hanche') ? zs('bassin','hanche') : 'none';
+  const cGenou  = has('genou_ax','genou_lat','genou_lig','genou_men','genou_rot') ? zf('genou_ax','genou_lat','genou_lig','genou_men','genou_rot') : 'none';
+  const sGenou  = has('genou_ax','genou_lat','genou_lig','genou_men','genou_rot') ? zs('genou_ax','genou_lat','genou_lig','genou_men','genou_rot') : 'none';
+  const cTibia  = has('tibia') ? zf('tibia') : 'none';
+  const sTibia  = has('tibia') ? zs('tibia') : 'none';
+  const cChev   = has('cheville','achille') ? zf('cheville','achille') : 'none';
+  const sChev   = has('cheville','achille') ? zs('cheville','achille') : 'none';
+  const cTalon  = has('talon_ax','talon_zone') ? zf('talon_ax','talon_zone') : 'none';
+  const sTalon  = has('talon_ax','talon_zone') ? zs('talon_ax','talon_zone') : 'none';
+  const cVoute  = has('voute','metatarses') ? zf('voute','metatarses') : 'none';
+  const sVoute  = has('voute','metatarses') ? zs('voute','metatarses') : 'none';
+  const cHV     = has('hallux_valgus','hallux_rigidus') ? zf('hallux_valgus','hallux_rigidus') : 'none';
+  const sHV     = has('hallux_valgus','hallux_rigidus') ? zs('hallux_valgus','hallux_rigidus') : 'none';
+  const cOrt    = has('orteils') ? zf('orteils') : 'none';
+  const sOrt    = has('orteils') ? zs('orteils') : 'none';
+  const cAch    = has('achille') ? zf('achille') : 'none';
+  const sAch    = has('achille') ? zs('achille') : 'none';
+
+  // skin tones
+  const sk = '#EAC9A0';   // base skin
+  const skD = '#C99A6E';  // darker contour
+  const sk2 = '#D4A574';  // mid tone
+  const ln = '#8B6350';   // line/edge color
+
+  if(view === 'front'){
+  return `<svg width="180" height="430" viewBox="0 0 180 430" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bodyG" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="${skD}" stop-opacity="0.6"/>
+    <stop offset="40%" stop-color="${sk}" stop-opacity="1"/>
+    <stop offset="70%" stop-color="${sk}" stop-opacity="1"/>
+    <stop offset="100%" stop-color="${skD}" stop-opacity="0.6"/>
+  </linearGradient>
+  <linearGradient id="legG" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="${skD}" stop-opacity="0.5"/>
+    <stop offset="35%" stop-color="${sk}"/>
+    <stop offset="65%" stop-color="${sk}"/>
+    <stop offset="100%" stop-color="${skD}" stop-opacity="0.5"/>
+  </linearGradient>
+  <filter id="softShadow"><feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-opacity="0.15"/></filter>
+</defs>
+
+<!-- HEAD - realistic oval -->
+<ellipse cx="90" cy="28" rx="21" ry="25" fill="url(#bodyG)" stroke="${ln}" stroke-width="1.2"/>
+<!-- hair suggestion -->
+<path d="M69,18 Q90,5 111,18 Q105,8 90,6 Q75,8 69,18Z" fill="${skD}" opacity="0.5"/>
+<!-- ears -->
+<ellipse cx="69" cy="30" rx="4" ry="6" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<ellipse cx="111" cy="30" rx="4" ry="6" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- neck -->
+<path d="M82,50 L82,65 Q90,68 98,65 L98,50 Q90,53 82,50Z" fill="url(#bodyG)" stroke="${ln}" stroke-width="1"/>
+<!-- trapezius / shoulders -->
+<path d="M82,63 Q68,65 52,74 Q44,79 42,88 L55,88 Q60,80 74,76 Q90,73 106,76 Q120,80 125,88 L138,88 Q136,79 128,74 Q112,65 98,63 Q90,66 82,63Z" fill="url(#bodyG)" stroke="${ln}" stroke-width="1"/>
+<!-- clavicle lines -->
+<path d="M82,67 Q74,68 58,75" stroke="${ln}" stroke-width="0.8" fill="none" opacity="0.5"/>
+<path d="M98,67 Q106,68 122,75" stroke="${ln}" stroke-width="0.8" fill="none" opacity="0.5"/>
+<!-- TORSO -->
+<path d="M55,88 Q50,108 50,128 Q50,150 55,165 Q62,175 90,178 Q118,175 125,165 Q130,150 130,128 Q130,108 125,88 Z" fill="url(#bodyG)" stroke="${ln}" stroke-width="1.2"/>
+<!-- pec lines -->
+<path d="M60,95 Q75,100 90,98 Q105,100 120,95" stroke="${ln}" stroke-width="0.6" fill="none" opacity="0.3"/>
+<!-- navel -->
+<ellipse cx="90" cy="148" rx="2.5" ry="3" fill="${skD}" opacity="0.5"/>
+<!-- ARMS -->
+<!-- Upper arm L -->
+<path d="M53,88 Q42,92 38,112 Q36,128 38,145 Q42,152 48,150 Q54,148 56,132 Q57,115 58,98 Z" fill="url(#legG)" stroke="${ln}" stroke-width="1"/>
+<!-- Forearm L -->
+<path d="M38,145 Q34,162 35,178 Q37,188 43,186 Q49,184 50,172 Q50,158 48,150 Z" fill="url(#legG)" stroke="${ln}" stroke-width="0.9"/>
+<!-- Hand L -->
+<path d="M35,178 Q32,192 35,200 Q39,205 44,202 Q49,199 50,188 Q50,182 49,178 Z" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- Upper arm R -->
+<path d="M127,88 Q138,92 142,112 Q144,128 142,145 Q138,152 132,150 Q126,148 124,132 Q123,115 122,98 Z" fill="url(#legG)" stroke="${ln}" stroke-width="1"/>
+<!-- Forearm R -->
+<path d="M142,145 Q146,162 145,178 Q143,188 137,186 Q131,184 130,172 Q130,158 132,150 Z" fill="url(#legG)" stroke="${ln}" stroke-width="0.9"/>
+<!-- Hand R -->
+<path d="M145,178 Q148,192 145,200 Q141,205 136,202 Q131,199 130,188 Q130,182 131,178 Z" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- PELVIS -->
+<path d="M55,165 Q58,182 90,186 Q122,182 125,165 Q118,175 90,178 Q62,175 55,165Z"
+  fill="${cBassin!='none'?cBassin:'url(#bodyG)'}" stroke="${sBassin!='none'?sBassin:ln}" stroke-width="${sBassin!='none'?2.5:1.2}"/>
+
+<!-- LEFT LEG (right on screen) -->
+<!-- Thigh L -->
+<path d="M${58+gvOff},186 Q${54+gvOff},210 ${53+gvOff},240 Q${54+gvOff},250 ${62+gvOff},252 Q${72+gvOff},254 ${76+gvOff},248 Q${80+gvOff},238 ${80+gvOff},210 Q${80+gvOff},190 ${75},186 Z"
+  fill="url(#legG)" stroke="${ln}" stroke-width="1"/>
+<!-- Knee L -->
+<ellipse cx="${65+gvOff}" cy="${254}" rx="14" ry="12"
+  fill="${cGenou!='none'?cGenou:'url(#legG)'}"
+  stroke="${sGenou!='none'?sGenou:ln}"
+  stroke-width="${sGenou!='none'?2.5:1}"/>
+<!-- kneecap L -->
+<ellipse cx="${65+gvOff}" cy="${252}" rx="7" ry="5.5" fill="${sk2}" stroke="${ln}" stroke-width="0.8" opacity="0.7"/>
+<!-- Tibia/Calf L -->
+<path d="M${52+gvOff/2},${264+flexShift} Q${50+gvOff/2},${295+flexShift} ${52+gvOff/4},${318} Q${55},${332} ${64},${334} Q${73},${332} ${75},${318} Q${77+gvOff/4},${295+flexShift} ${78+gvOff/2},${264+flexShift} Z"
+  fill="${cTibia!='none'?cTibia:'url(#legG)'}"
+  stroke="${sTibia!='none'?sTibia:ln}"
+  stroke-width="${sTibia!='none'?2:1}"/>
+<!-- Ankle L -->
+<path d="M${52+heelTilt/2},${328} Q${50+heelTilt/2},${340} ${56+heelTilt},${344} Q${64},${346} ${73+heelTilt},${342} Q${78+heelTilt/2},${338} ${76+heelTilt/2},${328} Z"
+  fill="${cChev!='none'?cChev:sk2}"
+  stroke="${sChev!='none'?sChev:ln}"
+  stroke-width="${sChev!='none'?2:0.9}"/>
+<!-- Foot L -->
+<path d="M${49+heelTilt},${342} Q${47+heelTilt},${356} ${52+heelTilt},${362} Q${64},${366} ${80+heelTilt},${362} Q${86+heelTilt},${358} ${87+heelTilt},${352} Q${84+heelTilt},${344} ${73+heelTilt},${342} Z"
+  fill="${cTalon!='none'?cTalon:sk2}"
+  stroke="${sTalon!='none'?sTalon:ln}"
+  stroke-width="${sTalon!='none'?2:0.9}"/>
+<!-- Metatarsal zone L -->
+<path d="M${78+heelTilt},${348} Q${84+heelTilt},${348} ${90+heelTilt},${350} Q${90+heelTilt},${360} ${82+heelTilt},${362} Q${80+heelTilt},${358} ${78+heelTilt},${352} Z"
+  fill="${cVoute!='none'?cVoute:sk2}" stroke="${sVoute!='none'?sVoute:ln}" stroke-width="${sVoute!='none'?1.8:0.8}"/>
+<!-- Toes L - hallux -->
+<path d="M${87+heelTilt-hvAngle/3},${344} Q${90+heelTilt-hvAngle/3},${342} ${93+heelTilt-hvAngle/3},${348} Q${91+heelTilt-hvAngle/3},${354} ${88+heelTilt-hvAngle/3},${354} Q${85+heelTilt-hvAngle/3},${352} ${87+heelTilt-hvAngle/3},${344}Z"
+  fill="${cHV!='none'?cHV:sk2}" stroke="${sHV!='none'?sHV:ln}" stroke-width="${sHV!='none'?2:0.8}"/>
+<!-- Other toes L -->
+<path d="M${88+heelTilt},${348} Q${96+heelTilt},${344} ${102+heelTilt},${347} Q${100+heelTilt},${355} ${92+heelTilt},${357} Z"
+  fill="${cOrt!='none'?cOrt:sk2}" stroke="${sOrt!='none'?sOrt:ln}" stroke-width="${sOrt!='none'?1.8:0.8}"/>
+
+<!-- RIGHT LEG (left on screen) -->
+<!-- Thigh R -->
+<path d="M${105},186 Q${100+gvOff/2},190 ${100-gvOff},210 Q${100-gvOff},238 ${104-gvOff},248 Q${108-gvOff},254 ${118-gvOff},252 Q${127-gvOff},250 ${128-gvOff},240 Q${127-gvOff},210 ${126-gvOff},186 Z"
+  fill="url(#legG)" stroke="${ln}" stroke-width="1"/>
+<!-- Knee R -->
+<ellipse cx="${115-gvOff}" cy="${254}" rx="14" ry="12"
+  fill="${cGenou!='none'?cGenou:'url(#legG)'}"
+  stroke="${sGenou!='none'?sGenou:ln}"
+  stroke-width="${sGenou!='none'?2.5:1}"/>
+<ellipse cx="${115-gvOff}" cy="${252}" rx="7" ry="5.5" fill="${sk2}" stroke="${ln}" stroke-width="0.8" opacity="0.7"/>
+<!-- Tibia R -->
+<path d="M${102-gvOff/2},${264+flexShift} Q${100-gvOff/2},${295+flexShift} ${103-gvOff/4},${318} Q${106},${332} ${115},${334} Q${124},${332} ${127},${318} Q${129+gvOff/4},${295+flexShift} ${128-gvOff/2},${264+flexShift} Z"
+  fill="${cTibia!='none'?cTibia:'url(#legG)'}"
+  stroke="${sTibia!='none'?sTibia:ln}"
+  stroke-width="${sTibia!='none'?2:1}"/>
+<!-- Ankle R -->
+<path d="M${103-heelTilt/2},${328} Q${101-heelTilt/2},${338} ${107-heelTilt},${342} Q${115},${346} ${124-heelTilt},${342} Q${129-heelTilt/2},${338} ${128-heelTilt/2},${328} Z"
+  fill="${cChev!='none'?cChev:sk2}"
+  stroke="${sChev!='none'?sChev:ln}"
+  stroke-width="${sChev!='none'?2:0.9}"/>
+<!-- Foot R -->
+<path d="M${93-heelTilt},${352} Q${93-heelTilt},${344} ${107-heelTilt},${342} Q${118-heelTilt},${342} ${131-heelTilt},${356} Q${132-heelTilt},${362} ${128-heelTilt},${366} Q${116},${366} ${100-heelTilt},${362} Q${95-heelTilt},${358} ${93-heelTilt},${352}Z"
+  fill="${cTalon!='none'?cTalon:sk2}"
+  stroke="${sTalon!='none'?sTalon:ln}"
+  stroke-width="${sTalon!='none'?2:0.9}"/>
+<!-- Metatarsal zone R -->
+<path d="M${93-heelTilt},${348} Q${88-heelTilt},${348} ${80-heelTilt},${350} Q${80-heelTilt},${360} ${90-heelTilt},${362} Q${94-heelTilt},${358} ${95-heelTilt},${352} Z"
+  fill="${cVoute!='none'?cVoute:sk2}" stroke="${sVoute!='none'?sVoute:ln}" stroke-width="${sVoute!='none'?1.8:0.8}"/>
+<!-- Hallux R -->
+<path d="M${93-heelTilt+hvAngle/3},${344} Q${90-heelTilt+hvAngle/3},${342} ${87-heelTilt+hvAngle/3},${348} Q${89-heelTilt+hvAngle/3},${354} ${92-heelTilt+hvAngle/3},${354} Q${95-heelTilt+hvAngle/3},${352} ${93-heelTilt+hvAngle/3},${344}Z"
+  fill="${cHV!='none'?cHV:sk2}" stroke="${sHV!='none'?sHV:ln}" stroke-width="${sHV!='none'?2:0.8}"/>
+<path d="M${92-heelTilt},${348} Q${84-heelTilt},${344} ${78-heelTilt},${347} Q${80-heelTilt},${355} ${88-heelTilt},${357} Z"
+  fill="${cOrt!='none'?cOrt:sk2}" stroke="${sOrt!='none'?sOrt:ln}" stroke-width="${sOrt!='none'?1.8:0.8}"/>
+
+<!-- DEVIATION OVERLAYS -->
+${gnAx!=='Neutre'?`
+<line x1="${65+gvOff}" y1="186" x2="${65}" y2="340" stroke="${sGenou}" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+<line x1="${115-gvOff}" y1="186" x2="${115}" y2="340" stroke="${sGenou}" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+<text x="90" y="270" text-anchor="middle" font-size="9" fill="${sGenou}" font-weight="700" font-family="system-ui">${gnAx}</text>
+`:''}
+${hasHV?`<text x="90" y="420" text-anchor="middle" font-size="8" fill="${sHV}" font-weight="700" font-family="system-ui">Hallux valgus</text>`:''}
+${has('talon_ax')?`<text x="90" y="408" text-anchor="middle" font-size="8" fill="${sTalon}" font-weight="700" font-family="system-ui">${talon} cal.</text>`:''}
+${has('voute')?`<text x="90" y="${has('talon_ax')?420:408}" text-anchor="middle" font-size="8" fill="${sVoute}" font-weight="700" font-family="system-ui">${voute}</text>`:''}
+</svg>`;
+  }
+
+  if(view === 'back'){
+  return `<svg width="180" height="430" viewBox="0 0 180 430" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bodyGb" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="${skD}" stop-opacity="0.5"/>
+    <stop offset="35%" stop-color="${sk}"/>
+    <stop offset="65%" stop-color="${sk}"/>
+    <stop offset="100%" stop-color="${skD}" stop-opacity="0.5"/>
+  </linearGradient>
+</defs>
+<!-- HEAD back -->
+<ellipse cx="90" cy="28" rx="21" ry="25" fill="url(#bodyGb)" stroke="${ln}" stroke-width="1.2"/>
+<!-- Hair back -->
+<path d="M69,12 Q90,4 111,12 Q114,22 111,50 Q90,52 69,50 Q66,22 69,12Z" fill="${skD}" opacity="0.35"/>
+<!-- ears -->
+<ellipse cx="69" cy="30" rx="4" ry="6" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<ellipse cx="111" cy="30" rx="4" ry="6" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- Neck back -->
+<path d="M83,50 L82,65 Q90,67 98,65 L97,50 Q90,52 83,50Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="1"/>
+<!-- Shoulders back -->
+<path d="M82,63 Q68,65 52,74 Q44,79 42,88 L55,88 Q60,80 74,76 Q90,73 106,76 Q120,80 125,88 L138,88 Q136,79 128,74 Q112,65 98,63 Q90,66 82,63Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="1"/>
+<!-- Back torso -->
+<path d="M55,88 Q50,110 50,135 Q50,155 55,168 Q62,178 90,180 Q118,178 125,168 Q130,155 130,135 Q130,110 125,88Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="1.2"/>
+<!-- Spine -->
+<line x1="90" y1="75" x2="90" y2="170" stroke="${ln}" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.35"/>
+<!-- Scapulae -->
+<path d="M67,95 Q60,105 62,120 Q68,128 76,122 Q80,115 76,100 Z" fill="${skD}" opacity="0.18"/>
+<path d="M113,95 Q120,105 118,120 Q112,128 104,122 Q100,115 104,100 Z" fill="${skD}" opacity="0.18"/>
+<!-- Arms back -->
+<path d="M53,88 Q42,93 38,115 Q36,132 38,148 Q42,154 48,152 Q54,150 56,134 Q57,115 58,98Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="1"/>
+<path d="M38,148 Q34,164 35,180 Q37,190 43,188 Q49,186 50,174 Q50,160 48,152Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="0.9"/>
+<path d="M35,180 Q32,194 35,202 Q39,207 44,204 Q49,201 50,190 Q50,184 49,180Z" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<path d="M127,88 Q138,93 142,115 Q144,132 142,148 Q138,154 132,152 Q126,150 124,134 Q123,115 122,98Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="1"/>
+<path d="M142,148 Q146,164 145,180 Q143,190 137,188 Q131,186 130,174 Q130,160 132,152Z" fill="url(#bodyGb)" stroke="${ln}" stroke-width="0.9"/>
+<path d="M145,180 Q148,194 145,202 Q141,207 136,204 Q131,201 130,190 Q130,184 131,180Z" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- GLUTES / PELVIS BACK -->
+<path d="M55,168 Q55,185 70,192 Q82,197 90,196 Q98,197 110,192 Q125,185 125,168 Q118,178 90,180 Q62,178 55,168Z"
+  fill="${cBassin!='none'?cBassin:'url(#bodyGb)'}"
+  stroke="${sBassin!='none'?sBassin:ln}"
+  stroke-width="${sBassin!='none'?2.5:1}"/>
+<!-- Glute fold lines -->
+<path d="M62,185 Q78,192 90,191 Q102,192 118,185" stroke="${ln}" stroke-width="0.8" fill="none" opacity="0.25"/>
+
+<!-- LEFT LEG back -->
+<path d="M${58+gvOff},194 Q${54+gvOff},218 ${52+gvOff},245 Q${53+gvOff},255 ${63+gvOff},257 Q${73+gvOff},258 ${78+gvOff},250 Q${82+gvOff},238 ${80+gvOff},212 Q${78},198 ${72},194Z"
+  fill="url(#bodyGb)" stroke="${ln}" stroke-width="1"/>
+<ellipse cx="${64+gvOff}" cy="${258}" rx="14" ry="11"
+  fill="${cGenou!='none'?cGenou:'url(#bodyGb)'}" stroke="${sGenou!='none'?sGenou:ln}" stroke-width="${sGenou!='none'?2.5:1}"/>
+<!-- Popliteal fossa L -->
+<path d="M${57+gvOff},${255} Q${64+gvOff},${260} ${71+gvOff},${255}" stroke="${ln}" stroke-width="1" fill="none" opacity="0.4"/>
+<!-- Calf L -->
+<path d="M${51+gvOff/2},${268+flexShift} Q${48},${292+flexShift} ${50},${315} Q${55},${334} ${64},${336} Q${73},${334} ${77},${315} Q${79+gvOff/4},${292+flexShift} ${77+gvOff/2},${268+flexShift} Z"
+  fill="${cTibia!='none'?cTibia:'url(#bodyGb)'}" stroke="${sTibia!='none'?sTibia:ln}" stroke-width="${sTibia!='none'?2:0.9}"/>
+<!-- Achilles L -->
+<path d="M${60+heelTilt/2},${328} Q${57+heelTilt/2},${340} ${62+heelTilt},${346} Q${64},${348} ${68+heelTilt},${346} Q${72+heelTilt},${340} ${70+heelTilt/2},${328} Z"
+  fill="${cAch!='none'?cAch:'#C8A882'}" stroke="${sAch!='none'?sAch:ln}" stroke-width="${sAch!='none'?2.5:0.9}"/>
+<!-- Heel L -->
+<ellipse cx="${63+heelTilt}" cy="${350}" rx="13" ry="9"
+  fill="${cTalon!='none'?cTalon:sk2}" stroke="${sTalon!='none'?sTalon:ln}" stroke-width="${sTalon!='none'?2:0.9}"/>
+<!-- Foot back L -->
+<path d="M${50+heelTilt},${346} Q${48+heelTilt},${360} ${56+heelTilt},${366} Q${64},${368} ${78+heelTilt},${364} Q${86+heelTilt},${360} ${86+heelTilt},${352} Q${76+heelTilt},${344} ${63+heelTilt},${345}Z"
+  fill="${sk2}" stroke="${ln}" stroke-width="0.9"/>
+
+<!-- RIGHT LEG back -->
+<path d="M${102},194 Q${100-gvOff/2},198 ${100-gvOff},212 Q${98-gvOff},238 ${102-gvOff},250 Q${107-gvOff},258 ${117-gvOff},257 Q${127-gvOff},255 ${128-gvOff},245 Q${126-gvOff},218 ${122-gvOff},194Z"
+  fill="url(#bodyGb)" stroke="${ln}" stroke-width="1"/>
+<ellipse cx="${116-gvOff}" cy="${258}" rx="14" ry="11"
+  fill="${cGenou!='none'?cGenou:'url(#bodyGb)'}" stroke="${sGenou!='none'?sGenou:ln}" stroke-width="${sGenou!='none'?2.5:1}"/>
+<path d="M${109-gvOff},${255} Q${116-gvOff},${260} ${123-gvOff},${255}" stroke="${ln}" stroke-width="1" fill="none" opacity="0.4"/>
+<path d="M${103-gvOff/2},${268+flexShift} Q${101},${292+flexShift} ${103},${315} Q${107},${334} ${116},${336} Q${125},${334} ${130},${315} Q${132+gvOff/4},${292+flexShift} ${129-gvOff/2},${268+flexShift} Z"
+  fill="${cTibia!='none'?cTibia:'url(#bodyGb)'}" stroke="${sTibia!='none'?sTibia:ln}" stroke-width="${sTibia!='none'?2:0.9}"/>
+<path d="M${111-heelTilt/2},${328} Q${109-heelTilt/2},${340} ${112-heelTilt},${346} Q${116},${348} ${120-heelTilt},${346} Q${123-heelTilt},${340} ${121-heelTilt/2},${328} Z"
+  fill="${cAch!='none'?cAch:'#C8A882'}" stroke="${sAch!='none'?sAch:ln}" stroke-width="${sAch!='none'?2.5:0.9}"/>
+<ellipse cx="${117-heelTilt}" cy="${350}" rx="13" ry="9"
+  fill="${cTalon!='none'?cTalon:sk2}" stroke="${sTalon!='none'?sTalon:ln}" stroke-width="${sTalon!='none'?2:0.9}"/>
+<path d="M${95-heelTilt},${352} Q${94-heelTilt},${360} ${102-heelTilt},${366} Q${116},${368} ${130-heelTilt},${362} Q${133-heelTilt},${355} ${131-heelTilt},${346} Q${120-heelTilt},${344} ${117-heelTilt},${345}Z"
+  fill="${sk2}" stroke="${ln}" stroke-width="0.9"/>
+
+<!-- DEVIATION LABELS -->
+${gnAx!=='Neutre'?`<text x="90" y="282" text-anchor="middle" font-size="9" fill="${sGenou}" font-weight="700" font-family="system-ui">${gnAx}</text>`:''}
+${has('achille')?`<text x="90" y="340" text-anchor="middle" font-size="8" fill="${sAch}" font-weight="700" font-family="system-ui">Achille</text>`:''}
+${has('talon_ax')?`<text x="90" y="370" text-anchor="middle" font-size="8" fill="${sTalon}" font-weight="700" font-family="system-ui">${talon}</text>`:''}
+</svg>`;
+  }
+
+  if(view === 'lateral'){
+  return `<svg width="180" height="430" viewBox="0 0 180 430" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bodyGl" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="${skD}" stop-opacity="0.4"/>
+    <stop offset="30%" stop-color="${sk}"/>
+    <stop offset="80%" stop-color="${sk}"/>
+    <stop offset="100%" stop-color="${skD}" stop-opacity="0.3"/>
+  </linearGradient>
+</defs>
+<!-- HEAD lateral -->
+<path d="M72,10 Q68,28 70,46 Q78,58 92,56 Q106,54 112,42 Q118,30 112,16 Q104,4 90,4 Q78,4 72,10Z"
+  fill="url(#bodyGl)" stroke="${ln}" stroke-width="1.2"/>
+<!-- Face features -->
+<path d="M110,24 Q118,30 116,40 Q112,48 106,50" stroke="${ln}" stroke-width="0.8" fill="none" opacity="0.3"/>
+<!-- Nose -->
+<path d="M110,32 L114,38 Q112,42 108,40" stroke="${ln}" stroke-width="0.8" fill="none" opacity="0.5"/>
+<!-- ear -->
+<ellipse cx="70" cy="32" rx="5" ry="7" fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- Neck lateral -->
+<path d="M85,55 L83,68 Q90,72 97,68 L96,56 Q92,60 85,55Z" fill="url(#bodyGl)" stroke="${ln}" stroke-width="1"/>
+<!-- TORSO lateral - with lumbar curve -->
+<path d="M73,70 Q66,90 65,115 Q64,140 67,160 Q72,178 90,184 Q108,184 115,175 Q120,162 118,138 Q116,112 114,88 Q110,72 100,68 Q90,66 73,70Z"
+  fill="url(#bodyGl)" stroke="${ln}" stroke-width="1.2"/>
+<!-- Chest protrusion -->
+<path d="M112,88 Q122,98 120,115 Q118,128 114,132" stroke="${ln}" stroke-width="0.7" fill="none" opacity="0.3"/>
+<!-- Lumbar curve line -->
+<path d="M68,130 Q62,148 67,160" stroke="${ln}" stroke-width="0.8" fill="none" opacity="0.3"/>
+<!-- ARM lateral -->
+<path d="M73,78 Q60,83 54,110 Q50,130 52,150 Q56,158 62,154 Q68,150 70,132 Q72,110 74,90Z"
+  fill="url(#bodyGl)" stroke="${ln}" stroke-width="1"/>
+<path d="M52,150 Q48,170 50,186 Q53,196 59,193 Q64,190 65,178 Q65,162 62,154Z"
+  fill="url(#bodyGl)" stroke="${ln}" stroke-width="0.8"/>
+<path d="M50,186 Q47,200 50,208 Q54,214 60,210 Q64,206 65,196 Q65,190 64,186Z"
+  fill="${sk2}" stroke="${ln}" stroke-width="0.8"/>
+<!-- PELVIS/GLUTE lateral -->
+<path d="M68,172 Q62,185 64,200 Q70,215 88,218 Q104,216 112,205 Q118,192 115,178 Q110,184 90,184 Q74,184 68,172Z"
+  fill="${cBassin!='none'?cBassin:'url(#bodyGl)'}"
+  stroke="${sBassin!='none'?sBassin:ln}"
+  stroke-width="${sBassin!='none'?2.5:1}"/>
+<!-- THIGH lateral -->
+<path d="M${70},${218} Q${66},${245+flexShift/2} ${66},${265+flexShift} Q${68},${274+flexShift} ${80},${276+flexShift} Q${92},${274+flexShift} ${96},${265+flexShift} Q${98},${245+flexShift/2} ${95},${218} Z"
+  fill="url(#bodyGl)" stroke="${ln}" stroke-width="1"/>
+<!-- Knee lateral -->
+<path d="M${63},${270+flexShift} Q${62},${285+flexShift} ${68},${292+flexShift} Q${80},${298+flexShift} ${92},${292+flexShift} Q${100},${284+flexShift} ${100},${270+flexShift} Q${92},${264+flexShift} ${80},${263+flexShift} Q${68},${264+flexShift} ${63},${270+flexShift}Z"
+  fill="${cGenou!='none'?cGenou:'url(#bodyGl)'}"
+  stroke="${sGenou!='none'?sGenou:ln}"
+  stroke-width="${sGenou!='none'?2.5:1}"/>
+<!-- Patella -->
+<ellipse cx="${81}" cy="${276+flexShift}" rx="9" ry="7" fill="${sk2}" stroke="${ln}" stroke-width="0.8" opacity="0.8"/>
+<!-- TIBIA lateral - angled if flexum -->
+<path d="M${67+flexShift/2},${294+flexShift} Q${63+flexShift/3},${320} ${64},${342} Q${68},${356} ${80},${358} Q${92},${356} ${97},${342} Q${98},${320} ${94-flexShift/2},${294+flexShift} Z"
+  fill="${cTibia!='none'?cTibia:'url(#bodyGl)'}"
+  stroke="${sTibia!='none'?sTibia:ln}"
+  stroke-width="${sTibia!='none'?2:1}"/>
+<!-- Shin bone prominence -->
+<path d="M${76+flexShift/3},${296+flexShift} Q${74},${320} ${75},${342}" stroke="${ln}" stroke-width="0.7" fill="none" opacity="0.25"/>
+<!-- ACHILLES lateral -->
+<path d="M${91},${338} Q${96},${344} ${96},${354} Q${94},${360} ${88},${360} Q${91},${350} ${90},${340}Z"
+  fill="${cAch!='none'?cAch:'#C8A882'}"
+  stroke="${sAch!='none'?sAch:ln}"
+  stroke-width="${sAch!='none'?2.5:0.9}"/>
+<!-- HEEL lateral -->
+<path d="M${64},${355} Q${62},${368} ${68},${374} Q${78},${378} ${84},${374} Q${90},${368} ${90},${358} Q${84},${354} ${72},${352} Q${66},${353} ${64},${355}Z"
+  fill="${cTalon!='none'?cTalon:sk2}"
+  stroke="${sTalon!='none'?sTalon:ln}"
+  stroke-width="${sTalon!='none'?2:0.9}"/>
+<!-- PLANTAR / ARCH lateral -->
+<path d="M${68},${374} Q${82},${382+archDip} ${105},${376} Q${118},${370} ${124},${362} Q${116},${358} ${105},${360} Q${90},${366+archDip} ${70},${374}Z"
+  fill="${cVoute!='none'?cVoute:sk2}"
+  stroke="${sVoute!='none'?sVoute:ln}"
+  stroke-width="${sVoute!='none'?2:0.9}"/>
+<!-- Arch line -->
+${voute!==''&&voute!=='Pied normal'?`<path d="M${72},${374} Q${94},${374+archDip*1.5} ${114},${368}" stroke="${sVoute}" stroke-width="2.5" fill="none" opacity="0.7" stroke-dasharray="${voute==='Pied plat'?'':'4,2'}"/>`:''}
+<!-- FOREFOOT lateral -->
+<path d="M${104},${358} Q${116},${356} ${130},${350} Q${136},${346} ${132},${340} Q${124},${338} ${112},${342} Q${104},${346} ${102},${354}Z"
+  fill="${cVoute!='none'?cVoute:sk2}" stroke="${sVoute!='none'?sVoute:ln}" stroke-width="${sVoute!='none'?1.8:0.9}"/>
+<!-- HALLUX lateral -->
+<path d="M${128+hvAngle/3},${336} Q${136+hvAngle/3},${334} ${140+hvAngle/3},${340} Q${138+hvAngle/3},${348} ${130+hvAngle/3},${350} Q${124+hvAngle/3},${348} ${126+hvAngle/3},${340}Z"
+  fill="${cHV!='none'?cHV:sk2}" stroke="${sHV!='none'?sHV:ln}" stroke-width="${sHV!='none'?2:0.8}"/>
+<!-- Toe 2-4 lateral -->
+<path d="M${124},${340} Q${130},${334} ${136},${336} Q${138},${342} ${132},${346} Z"
+  fill="${cOrt!='none'?cOrt:sk2}" stroke="${sOrt!='none'?sOrt:ln}" stroke-width="${sOrt!='none'?1.5:0.7}" opacity="0.7"/>
+
+<!-- FLEXUM / RECURVATUM indicator -->
+${hasFlexum?`
+<path d="M${96},${265+flexShift} Q${110},${270+flexShift} ${102},${292+flexShift}" stroke="#E87A1D" stroke-width="2.5" fill="none"/>
+<polygon points="${100},${294+flexShift} ${106},${287+flexShift} ${108},${296+flexShift}" fill="#E87A1D"/>
+<text x="${115}" y="${278+flexShift}" font-size="9" fill="#E87A1D" font-weight="700" font-family="system-ui">Flexum</text>
+`:''}
+${hasRecurv?`
+<path d="M${100},${265+flexShift} Q${112},${268+flexShift} ${104},${285+flexShift}" stroke="#E87A1D" stroke-width="2.5" fill="none"/>
+<text x="${112}" y="${275+flexShift}" font-size="9" fill="#E87A1D" font-weight="700" font-family="system-ui">Recurv.</text>
+`:''}
+<!-- LABELS -->
+${has('achille')?`<text x="${104}" y="${350}" font-size="8" fill="${sAch}" font-weight="700" font-family="system-ui">Achille</text>`:''}
+${has('voute')?`<text x="${96}" y="${396}" font-size="8" fill="${sVoute}" font-weight="700" font-family="system-ui">${voute}</text>`:''}
+${has('hallux_valgus')?`<text x="${134+hvAngle/2}" y="${358}" font-size="7" fill="${sHV}" font-weight="700" font-family="system-ui">HV</text>`:''}
+${has('bassin')?`<text x="${88}" y="${215}" font-size="8" fill="${sBassin}" font-weight="700" font-family="system-ui">Bassin</text>`:''}
+</svg>`;
+  }
+  return '';
+}
+
+window.addEventListener("DOMContentLoaded", function(){ loadCustomConfigs(); renderPatients(); });
+
 </script>
 </body>
 </html>
