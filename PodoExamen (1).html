@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PodoExamen">
+<meta name="theme-color" content="#1D9E75">
+<title>PodoExamen</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI2IiBmaWxsPSIjMUQ5RTc1Ii8+PHRleHQgeD0iNjAiIHk9Ijc4IiBmb250LXNpemU9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXBwbGUgQ29sb3IgRW1vamksIHNlcmlmIj7wn6eBPC90ZXh0Pjwvc3ZnPg==">
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root {
+  --bg: #f5f5f4; --surface: #ffffff; --surface2: #f4f4f3; --border: rgba(0,0,0,0.12);
+  --border2: rgba(0,0,0,0.2); --text: #1a1a1a; --text2: #666; --text3: #999;
+  --teal: #1D9E75; --teal-light: #E1F5EE; --teal-mid: #0F6E56; --teal-pale: #9FE1CB;
+  --red: #E24B4A; --red-light: #FCEBEB; --blue-light: #E6F1FB; --blue: #185FA5;
+  --radius: 10px; --radius-sm: 7px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a; --surface: #252525; --surface2: #2e2e2e; --border: rgba(255,255,255,0.1);
+    --border2: rgba(255,255,255,0.2); --text: #f0f0f0; --text2: #aaa; --text3: #666;
+    --teal-light: #0a3d2e; --teal-pale: #0f5c42; --red-light: #3a1515; --blue-light: #0a1e35;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.topbar { background: var(--surface); border-bottom: .5px solid var(--border); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 16px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 7px; }
+.logo i { color: var(--teal); font-size: 22px; }
+.tabs { display: flex; gap: 3px; }
+.tab { padding: 7px 11px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 4px; transition: all .15s; }
+.tab.active { background: var(--teal); color: #fff; border-color: var(--teal); font-weight: 500; }
+.tbtn { padding: 7px 11px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; }
+.tbtn.green { background: var(--teal); color: #fff; border-color: var(--teal); }
+.tbtn.green:hover { background: var(--teal-mid); }
+
+.main { padding: 14px; max-width: 900px; margin: 0 auto; }
+.screen { display: none; } .screen.active { display: block; }
+
+.card { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; }
+.card-hd { font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card-hd i { font-size: 16px; color: var(--teal); }
+
+.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fg { display: flex; flex-direction: column; gap: 3px; } .fg.full { grid-column: 1/-1; }
+.flbl { font-size: 12px; color: var(--text2); }
+.finput { padding: 9px 10px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; width: 100%; }
+.finput:focus { outline: none; border-color: var(--teal); }
+textarea.finput { resize: vertical; min-height: 65px; }
+
+.cg { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 5px; }
+.ci { display: flex; align-items: center; gap: 7px; padding: 8px 9px; border-radius: var(--radius-sm); border: .5px solid var(--border); background: var(--surface2); cursor: pointer; transition: all .15s; user-select: none; }
+.ci:active { opacity: .7; }
+.ci.chk { background: var(--teal-light); border-color: var(--teal); }
+.ci.chk .cb { background: var(--teal); border-color: var(--teal); }
+.ci.chk .cb i { display: block; }
+.cb { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--surface); }
+.cb i { display: none; color: #fff; font-size: 12px; }
+.clbl { font-size: 13px; color: var(--text); line-height: 1.3; }
+
+.rg { display: flex; gap: 6px; flex-wrap: wrap; }
+.ri { padding: 7px 13px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); font-size: 13px; cursor: pointer; color: var(--text2); transition: all .15s; user-select: none; }
+.ri:active { opacity: .7; }
+.ri.sel { background: var(--teal); color: #fff; border-color: var(--teal); font-weight: 500; }
+
+.sfield { width: 100%; padding: 9px 10px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; }
+.savebtn { width: 100%; padding: 13px; border-radius: var(--radius); background: var(--teal); color: #fff; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 7px; }
+.savebtn:active { background: var(--teal-mid); }
+
+.pclist { display: flex; flex-direction: column; gap: 7px; }
+.pc { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); padding: 13px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color .15s; }
+.pc:active { border-color: var(--teal); }
+.pav { width: 42px; height: 42px; border-radius: 50%; background: var(--teal-light); color: var(--teal); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.pi { flex: 1; min-width: 0; }
+.pn { font-size: 15px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pm { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.pacts { display: flex; gap: 5px; }
+.ib { width: 32px; height: 32px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text2); transition: all .15s; font-size: 16px; }
+.ib.danger:active { background: var(--red-light); color: var(--red); }
+
+.empty { text-align: center; padding: 40px 16px; color: var(--text2); }
+.empty i { font-size: 42px; color: var(--border2); margin-bottom: 10px; display: block; }
+.empty p { font-size: 14px; line-height: 1.6; }
+
+.badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500; background: var(--teal-light); color: var(--teal-mid); }
+.badge.gray { background: var(--surface2); color: var(--text2); }
+.badge.blue { background: var(--blue-light); color: var(--blue); }
+
+.esec { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
+.eshd { padding: 12px 14px; display: flex; align-items: center; gap: 7px; background: var(--surface2); border-bottom: .5px solid var(--border); cursor: pointer; }
+.estitle { font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
+.esbody { padding: 12px 14px; }
+.eir { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+.eiinput { flex: 1; padding: 8px 10px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 13px; font-family: inherit; }
+.eiinput:focus { outline: none; border-color: var(--teal); }
+.tsel { padding: 8px 7px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: var(--surface2); color: var(--text2); font-size: 12px; font-family: inherit; }
+.addbtn { width: 100%; padding: 8px; border: 1px dashed var(--border2); border-radius: var(--radius-sm); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.addbtn:active { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+.secadd { width: 100%; padding: 11px; border: 1.5px dashed var(--teal-pale); border-radius: var(--radius); background: var(--teal-light); color: var(--teal-mid); font-size: 14px; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 4px; }
+.secadd:active { background: var(--teal-pale); }
+
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--teal); color: #fff; padding: 10px 20px; border-radius: var(--radius); font-size: 14px; font-weight: 500; z-index: 999; opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap; }
+.toast.show { opacity: 1; }
+
+.moverlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+.moverlay.open { display: flex; }
+.modal { background: var(--surface); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 320px; border: .5px solid var(--border2); }
+.modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 7px; }
+.modal p { font-size: 13px; color: var(--text2); margin-bottom: 16px; line-height: 1.5; }
+.macts { display: flex; gap: 8px; justify-content: flex-end; }
+.bghost { padding: 8px 14px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; cursor: pointer; font-size: 13px; font-family: inherit; color: var(--text2); }
+.bdanger { padding: 8px 14px; border-radius: var(--radius-sm); border: none; background: var(--red); color: #fff; cursor: pointer; font-size: 13px; font-family: inherit; }
+
+.nota { font-size: 12px; color: var(--text2); font-style: italic; padding: 8px 10px; background: var(--surface2); border-radius: var(--radius-sm); border-left: 3px solid var(--teal); }
+.srch-wrap { position: relative; margin-bottom: 10px; }
+.srch-wrap i { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 17px; pointer-events: none; }
+.srch { width: 100%; padding: 10px 12px 10px 36px; border-radius: var(--radius); border: .5px solid var(--border2); background: var(--surface); color: var(--text); font-size: 14px; font-family: inherit; }
+.srch:focus { outline: none; border-color: var(--teal); }
+
+.hdr-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.hdr-title { font-size: 18px; font-weight: 600; color: var(--text); }
+.hcount { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
+
+.pdetail-nav { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+.pdetail-back { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--teal); cursor: pointer; padding: 4px 0; }
+.pdetail-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+.pdetail-tab { padding: 7px 14px; border-radius: var(--radius-sm); border: .5px solid var(--border2); background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; }
+.pdetail-tab.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+.hist-list { display: flex; flex-direction: column; gap: 8px; }
+.hist-item { background: var(--surface); border: .5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.hist-hd { padding: 12px 14px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.hist-hd:active { background: var(--surface2); }
+.hist-date { font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
+.hist-body { padding: 12px 14px; border-top: .5px solid var(--border); }
+.hfield { margin-bottom: 8px; }
+.hflbl { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+.hfval { font-size: 13px; color: var(--text); line-height: 1.5; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { padding: 2px 8px; border-radius: 20px; font-size: 12px; background: var(--teal-light); color: var(--teal-mid); }
+
+.collapse-icon { transition: transform .2s; font-size: 14px; color: var(--text3); }
+.collapse-icon.open { transform: rotate(180deg); }
+
+.sect-label { font-size: 13px; font-weight: 600; color: var(--teal); margin-bottom: 6px; margin-top: 10px; }
+
+@media (max-width: 480px) {
+  .pgrid { grid-template-columns: 1fr; }
+  .logo span { display: none; }
+  .tab span { display: none; }
+  .tabs { gap: 2px; }
+  .tab { padding: 7px 9px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo"><i class="ti ti-stethoscope"></i><span>PodoExamen</span></div>
+  <div class="tabs">
+    <button class="tab active" onclick="showScreen('patients')"><i class="ti ti-users"></i><span> Patients</span></button>
+    <button class="tab" onclick="showScreen('exam')"><i class="ti ti-clipboard-list"></i><span> Examen</span></button>
+    <button class="tab" onclick="showScreen('edit')"><i class="ti ti-settings"></i><span> Édition</span></button>
+  </div>
+  <div>
+    <button class="tbtn green" onclick="exportPDF()"><i class="ti ti-printer"></i> PDF</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PATIENTS -->
+  <div id="screen-patients" class="screen active">
+    <div class="hdr-row">
+      <div class="hdr-title">Patients</div>
+      <button class="tbtn green" onclick="newPatient()"><i class="ti ti-plus"></i> Nouveau</button>
+    </div>
+    <div class="srch-wrap">
+      <i class="ti ti-search"></i>
+      <input class="srch" type="search" placeholder="Rechercher par nom, prénom…" oninput="filterPatients(this.value)" id="srch-input">
+    </div>
+    <div id="pcount" class="hcount"></div>
+    <div id="plist" class="pclist"></div>
+  </div>
+
+  <!-- EXAM -->
+  <div id="screen-exam" class="screen">
+    <div id="exam-nop" style="display:none">
+      <div class="empty"><i class="ti ti-user-question"></i><p>Aucun patient sélectionné.<br>Choisissez un patient dans la liste.</p>
+        <button class="savebtn" style="width:auto;padding:10px 20px;margin:14px auto 0;" onclick="showScreen('patients')"><i class="ti ti-users"></i> Voir la liste</button>
+      </div>
+    </div>
+    <div id="exam-content"></div>
+  </div>
+
+  <!-- EDIT -->
+  <div id="screen-edit" class="screen">
+    <div class="hdr-row"><div class="hdr-title">Configuration des grilles</div></div>
+    <p class="nota" style="margin-bottom:12px;">Ajoutez, modifiez ou supprimez des sections et des champs. Ces grilles s'appliquent à tous les nouveaux examens.</p>
+    <div id="edit-sections"></div>
+    <button class="secadd" onclick="addSection()"><i class="ti ti-plus"></i> Ajouter une section</button>
+    <button class="savebtn" style="margin-top:12px;" onclick="saveTemplate()"><i class="ti ti-device-floppy"></i> Enregistrer la configuration</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="moverlay" id="moverlay">
+  <div class="modal">
+    <h3 id="mtitle">Confirmation</h3>
+    <p id="mmsg"></p>
+    <div class="macts">
+      <button class="bghost" onclick="closeMod()">Annuler</button>
+      <button class="bdanger" id="mconfirm">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DB={get:k=>{try{return JSON.parse(localStorage.getItem(k))}catch{return null}},set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
+
+const DEFAULT_TPL=[
+  {id:'anamnese',title:'Anamnèse',icon:'ti-user',items:[
+    {id:'motif',label:'Motif de consultation',type:'textarea'},
+    {id:'atcd_med',label:'Antécédents médicaux',type:'checks',options:['Diabète','HTA','Artérite','Insuffisance veineuse','Polyarthrite rhumatoïde','Goutte','Ostéoporose','Obésité','Neuropathie','Insuffisance rénale']},
+    {id:'atcd_chir',label:'Antécédents chirurgicaux',type:'text'},
+    {id:'traitement',label:'Traitement en cours',type:'text'},
+    {id:'allergies',label:'Allergies',type:'text'},
+    {id:'activite',label:'Activité physique',type:'radio',options:['Sédentaire','Modérée','Sportive','Professionnelle (station debout)']},
+    {id:'chaussage',label:'Chaussage habituel',type:'radio',options:['Ville','Sport','Travail','Talon haut','Chaussures larges']},
+  ]},
+  {id:'examen_statique',title:'Examen statique',icon:'ti-man',items:[
+    {id:'morpho',label:'Morphologie du pied',type:'radio',options:['Pied grec','Pied carré','Pied égyptien']},
+    {id:'formule',label:'Formule digitale',type:'radio',options:['Index minus','Index plus','Index plus-minus']},
+    {id:'talon',label:'Axe du talon',type:'radio',options:['Valgus','Varus','Neutre']},
+    {id:'voute',label:'Voûte plantaire',type:'radio',options:['Pied creux','Pied plat','Pied normal']},
+    {id:'patho_stat',label:'Pathologies observées',type:'checks',options:["Hallux valgus","Hallux rigidus","Quintus varus","Griffes d'orteils","Cors","Durillons","Onycho-cryptose","Onychomycose","Verrues plantaires","Hyperkératose talonnière"]},
+  ]},
+  {id:'examen_marche',title:'Examen de la marche',icon:'ti-walk',items:[
+    {id:'pas',label:'Longueur du pas',type:'radio',options:['Normal','Réduit','Augmenté']},
+    {id:'attaque',label:'Attaque du talon',type:'radio',options:['Normale','Absente','Augmentée']},
+    {id:'propulsion',label:'Propulsion',type:'radio',options:['Normale','Insuffisante','Inexistante']},
+    {id:'devi_marche',label:'Déviation à la marche',type:'checks',options:['En dedans','En dehors','Équin','Steppage','Trendelenburg','Antalgique','Fauchage']},
+    {id:'obs_marche',label:'Observations',type:'textarea'},
+  ]},
+  {id:'examen_charge',title:'Examen en charge',icon:'ti-arrows-down-up',items:[
+    {id:'genou',label:'Axe du genou',type:'radio',options:['Valgum','Varum','Neutre']},
+    {id:'tibias',label:'Torsion tibiale',type:'radio',options:['Interne','Externe','Neutre']},
+    {id:'avp_arp',label:'Avant-pied / arrière-pied',type:'radio',options:['Alignés','AVP valgus','AVP varus','ARP valgus','ARP varus']},
+    {id:'appui',label:"Zones d'appui excessif",type:'checks',options:['Talon latéral','Talon médial','Métatarses centraux','1er métatarse','5e métatarse','Avant-pied diffus']},
+    {id:'obs_charge',label:'Observations',type:'textarea'},
+  ]},
+  {id:'bilan_cutan',title:'Bilan cutané',icon:'ti-zoom-in',items:[
+    {id:'hydrat',label:'Hydratation cutanée',type:'radio',options:['Normale','Sèche','Très sèche','Grasse']},
+    {id:'lesions',label:'Lésions cutanées',type:'checks',options:['Hyperkératose','Fissures','Macération','Intertrigo','Ulcération','Bulle','Érythème','Cyanose','Cicatrice']},
+    {id:'ongles',label:'État des ongles',type:'checks',options:['Normaux','Onychomycose','Onychogrypose','Onycholyse','Onycho-cryptose','Hématome sous-unguéal','Onychie']},
+  ]},
+  {id:'plan',title:'Plan de traitement',icon:'ti-clipboard-check',items:[
+    {id:'trt_prop',label:'Traitement proposé',type:'checks',options:['Orthèse plantaire sur mesure','Orthoplastie','Soin de pédicurie','Conseil chaussage','Bilan complémentaire','Référé médecin','Infiltration','Rééducation','Semelle préfabriquée']},
+    {id:'notes_plan',label:'Notes et prescription',type:'textarea'},
+    {id:'suivi',label:'Prochain rendez-vous',type:'text'},
+  ]},
+];
+
+let S={
+  screen:'patients',
+  patients: DB.get('podo_patients')||[],
+  tpl: DB.get('podo_tpl')||DEFAULT_TPL,
+  curId:null, examData:{}, filter:'',
+  editCollapsed:{}, histCollapsed:{}, examTab:'new',
+};
+
+function save(){DB.set('podo_patients',S.patients);DB.set('podo_tpl',S.tpl);}
+
+function showScreen(s){
+  S.screen=s;
+  document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach((e,i)=>{e.classList.remove('active');if(['patients','exam','edit'][i]===s)e.classList.add('active');});
+  document.getElementById('screen-'+s).classList.add('active');
+  if(s==='patients')renderPatients();
+  if(s==='exam')renderExam();
+  if(s==='edit')renderEdit();
+}
+
+function initials(p){return((p.prenom||'?')[0]+(p.nom||'?')[0]).toUpperCase();}
+function age(ddn){if(!ddn)return'';const d=new Date(ddn);const a=Math.floor((Date.now()-d)/(365.25*24*3600*1000));return a>0?a+' ans':'';}
+
+function filterPatients(q){S.filter=q;renderPatients();}
+
+function renderPatients(){
+  const q=S.filter.toLowerCase().trim();
+  let list=S.patients;
+  if(q)list=list.filter(p=>(p.nom+' '+p.prenom).toLowerCase().includes(q)||(p.prenom+' '+p.nom).toLowerCase().includes(q));
+  const cnt=document.getElementById('pcount');
+  cnt.textContent=S.patients.length===0?'':q?`${list.length} résultat${list.length>1?'s':''} sur ${S.patients.length}`:`${S.patients.length} patient${S.patients.length>1?'s':''}`;
+  const el=document.getElementById('plist');
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><i class="ti ti-user-search"></i><p>${q?'Aucun résultat pour « '+q+' »':'Aucun patient enregistré.<br>Appuyez sur « Nouveau » pour commencer.'}</p></div>`;
+    return;
+  }
+  el.innerHTML=list.map(p=>`
+    <div class="pc" onclick="openPatient('${p.id}')">
+      <div class="pav">${initials(p)}</div>
+      <div class="pi">
+        <div class="pn">${p.prenom||''} ${p.nom||''}</div>
+        <div class="pm">${age(p.ddn)?age(p.ddn)+' · ':''}${p.tel||''}</div>
+        <div class="pm" style="margin-top:3px;">${p.exams&&p.exams.length?`<span class="badge">${p.exams.length} examen${p.exams.length>1?'s':''} · Dernier : ${p.exams[p.exams.length-1].date}</span>`:'<span class="badge gray">Pas encore d\'examen</span>'}</div>
+      </div>
+      <div class="pacts" onclick="event.stopPropagation()">
+        <button class="ib" onclick="openPatient('${p.id}')" title="Ouvrir"><i class="ti ti-clipboard-list"></i></button>
+        <button class="ib danger" onclick="confirmDel('${p.id}')" title="Supprimer"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+function newPatient(){
+  const id='p_'+Date.now();
+  S.patients.unshift({id,nom:'',prenom:'',ddn:'',tel:'',adresse:'',exams:[]});
+  S.curId=id;S.examData={};S.examTab='new';
+  save();showScreen('exam');
+}
+function openPatient(id){
+  S.curId=id;S.examData={};S.examTab='new';
+  showScreen('exam');
+}
+function confirmDel(id){
+  const p=S.patients.find(x=>x.id===id);
+  document.getElementById('mtitle').textContent='Supprimer le patient';
+  document.getElementById('mmsg').textContent=`Supprimer définitivement le dossier de ${p.prenom} ${p.nom} et tous ses examens ?`;
+  document.getElementById('mconfirm').onclick=()=>{S.patients=S.patients.filter(x=>x.id!==id);if(S.curId===id)S.curId=null;save();renderPatients();closeMod();showToast('Patient supprimé');};
+  document.getElementById('moverlay').classList.add('open');
+}
+function closeMod(){document.getElementById('moverlay').classList.remove('open');}
+
+function renderExam(){
+  const p=S.patients.find(x=>x.id===S.curId);
+  const nop=document.getElementById('exam-nop');
+  const cont=document.getElementById('exam-content');
+  if(!p){nop.style.display='';cont.innerHTML='';return;}
+  nop.style.display='none';
+  const hasExams=p.exams&&p.exams.length>0;
+
+  let html=`<div class="pdetail-nav">
+    <span class="pdetail-back" onclick="showScreen('patients')"><i class="ti ti-arrow-left" style="font-size:14px"></i> Patients</span>
+    <span style="color:var(--text3);font-size:13px;">/</span>
+    <span style="font-size:13px;font-weight:600;color:var(--text);">${p.prenom||'Nouveau'} ${p.nom||'patient'}</span>
+  </div>
+  <div class="pdetail-tabs">
+    <button class="pdetail-tab${S.examTab==='new'?' active':''}" onclick="switchExamTab('new')"><i class="ti ti-plus" style="font-size:13px"></i> Nouvel examen</button>
+    <button class="pdetail-tab${S.examTab==='hist'?' active':''}" onclick="switchExamTab('hist')"><i class="ti ti-history" style="font-size:13px"></i> Historique ${hasExams?'<span class="badge blue" style="margin-left:4px">'+p.exams.length+'</span>':''}</button>
+  </div>`;
+
+  if(S.examTab==='new'){
+    html+=`<div style="margin-top:4px;">`;
+    html+=`<div class="card"><div class="card-hd"><i class="ti ti-id-badge"></i>Identité</div>
+    <div class="pgrid">
+      <div class="fg"><div class="flbl">Nom</div><input class="finput" value="${esc(p.nom)}" placeholder="Dupont" oninput="upP('nom',this.value)"></div>
+      <div class="fg"><div class="flbl">Prénom</div><input class="finput" value="${esc(p.prenom)}" placeholder="Jean" oninput="upP('prenom',this.value)"></div>
+      <div class="fg"><div class="flbl">Date de naissance</div><input class="finput" type="date" value="${p.ddn||''}" oninput="upP('ddn',this.value)"></div>
+      <div class="fg"><div class="flbl">Téléphone</div><input class="finput" value="${esc(p.tel)}" placeholder="06 00 00 00 00" oninput="upP('tel',this.value)"></div>
+      <div class="fg full"><div class="flbl">Adresse</div><input class="finput" value="${esc(p.adresse)}" placeholder="1 rue des Fleurs, Paris" oninput="upP('adresse',this.value)"></div>
+    </div></div>`;
+    S.tpl.forEach(sec=>{html+=renderSection(sec);});
+    html+=`<button class="savebtn" onclick="saveExam()"><i class="ti ti-device-floppy"></i> Enregistrer l'examen</button>`;
+    html+=`</div>`;
+  } else {
+    html+=`<div style="margin-top:4px;">`;
+    if(!hasExams){
+      html+=`<div class="empty"><i class="ti ti-clipboard-off"></i><p>Aucun examen enregistré pour ce patient.</p></div>`;
+    } else {
+      html+=`<div class="hist-list">`;
+      const exams=[...p.exams].reverse();
+      exams.forEach((ex,ri)=>{
+        const i=p.exams.length-1-ri;
+        const open=!S.histCollapsed[i];
+        html+=`<div class="hist-item">
+          <div class="hist-hd" onclick="toggleHist(${i})">
+            <i class="ti ti-calendar-event" style="font-size:16px;color:var(--teal);"></i>
+            <span class="hist-date">Examen du ${ex.date}</span>
+            ${i===p.exams.length-1?'<span class="badge" style="margin-right:4px;">Dernier</span>':''}
+            <button class="ib" style="margin-right:2px;" onclick="event.stopPropagation();loadExamForEdit(${i})" title="Recharger"><i class="ti ti-edit"></i></button>
+            <button class="ib danger" onclick="event.stopPropagation();confirmDelExam(${i})" title="Supprimer"><i class="ti ti-trash"></i></button>
+            <i class="ti ti-chevron-down collapse-icon${open?' open':''}"></i>
+          </div>`;
+        if(open){
+          html+=`<div class="hist-body">`;
+          S.tpl.forEach(sec=>{
+            const hasData=sec.items.some(it=>{const v=ex.data[it.id];return v&&(!Array.isArray(v)||v.length>0)&&v!=='';});
+            if(!hasData)return;
+            html+=`<div class="sect-label">${sec.title}</div>`;
+            sec.items.forEach(it=>{
+              const v=ex.data[it.id];
+              if(!v||v===''||(Array.isArray(v)&&!v.length))return;
+              html+=`<div class="hfield"><div class="hflbl">${it.label}</div><div class="hfval">`;
+              if(Array.isArray(v))html+=`<div class="tags">`+v.map(x=>`<span class="tag">${esc(x)}</span>`).join('')+`</div>`;
+              else html+=`<span>${esc(v)}</span>`;
+              html+=`</div></div>`;
+            });
+          });
+          html+=`</div>`;
+        }
+        html+=`</div>`;
+      });
+      html+=`</div>`;
+    }
+    html+=`</div>`;
+  }
+  cont.innerHTML=html;
+}
+
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function switchExamTab(tab){S.examTab=tab;renderExam();}
+function toggleHist(i){S.histCollapsed[i]=!S.histCollapsed[i];renderExam();}
+function loadExamForEdit(i){
+  const p=S.patients.find(x=>x.id===S.curId);
+  S.examData=JSON.parse(JSON.stringify(p.exams[i].data));
+  S.examTab='new';renderExam();showToast('Examen chargé — modifiez et enregistrez');
+}
+function confirmDelExam(i){
+  document.getElementById('mtitle').textContent="Supprimer l'examen";
+  document.getElementById('mmsg').textContent='Supprimer définitivement cet examen ? Cette action est irréversible.';
+  document.getElementById('mconfirm').onclick=()=>{
+    const p=S.patients.find(x=>x.id===S.curId);
+    p.exams.splice(i,1);save();closeMod();S.histCollapsed={};renderExam();showToast('Examen supprimé');
+  };
+  document.getElementById('moverlay').classList.add('open');
+}
+
+function renderSection(sec){
+  let h=`<div class="card"><div class="card-hd"><i class="ti ${sec.icon}"></i>${esc(sec.title)}</div>`;
+  sec.items.forEach(it=>{
+    const v=S.examData[it.id];
+    h+=`<div style="margin-bottom:13px;"><div class="flbl" style="margin-bottom:5px;">${esc(it.label)}</div>`;
+    if(it.type==='text') h+=`<input class="finput" value="${esc(v||'')}" placeholder="…" oninput="setV('${it.id}',this.value)">`;
+    else if(it.type==='textarea') h+=`<textarea class="finput" placeholder="Notes libres…" oninput="setV('${it.id}',this.value)">${esc(v||'')}</textarea>`;
+    else if(it.type==='radio') h+=`<div class="rg">`+(it.options||[]).map(o=>`<div class="ri${v===o?' sel':''}" onclick="setRadio('${it.id}','${o.replace(/'/g,"\\'")}',this)">${esc(o)}</div>`).join('')+`</div>`;
+    else if(it.type==='checks'){
+      const chk=v||[];
+      h+=`<div class="cg">`+(it.options||[]).map(o=>`<div class="ci${chk.includes(o)?' chk':''}" onclick="togChk('${it.id}','${o.replace(/'/g,"\\'")}',this)"><div class="cb"><i class="ti ti-check"></i></div><span class="clbl">${esc(o)}</span></div>`).join('')+`</div>`;
+    }
+    else if(it.type==='select') h+=`<select class="sfield" onchange="setV('${it.id}',this.value)"><option value="">-- Sélectionner --</option>`+(it.options||[]).map(o=>`<option${v===o?' selected':''}>${esc(o)}</option>`).join('')+`</select>`;
+    h+=`</div>`;
+  });
+  h+=`</div>`;return h;
+}
+
+function setV(id,v){S.examData[id]=v;}
+function setRadio(id,v,el){S.examData[id]=v;el.closest('.rg').querySelectorAll('.ri').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');}
+function togChk(id,v,el){if(!S.examData[id])S.examData[id]=[];const a=S.examData[id];const i=a.indexOf(v);if(i>=0){a.splice(i,1);el.classList.remove('chk');}else{a.push(v);el.classList.add('chk');}}
+function upP(f,v){const p=S.patients.find(x=>x.id===S.curId);if(p)p[f]=v;}
+
+function saveExam(){
+  const p=S.patients.find(x=>x.id===S.curId);if(!p)return;
+  const now=new Date().toLocaleDateString('fr-FR');
+  if(!p.exams)p.exams=[];
+  p.exams.push({date:now,data:JSON.parse(JSON.stringify(S.examData))});
+  save();showToast('Examen enregistré ✓');
+  S.examData={};S.examTab='hist';S.histCollapsed={};
+  renderExam();
+}
+
+function renderEdit(){
+  const c=document.getElementById('edit-sections');
+  c.innerHTML=S.tpl.map((sec,si)=>`
+    <div class="esec">
+      <div class="eshd" onclick="togEditSec(${si})">
+        <i class="ti ${sec.icon}" style="color:var(--teal);font-size:15px;"></i>
+        <span class="estitle">${esc(sec.title)}</span>
+        <span style="font-size:12px;color:var(--text2);margin-right:6px;">${sec.items.length} champ${sec.items.length>1?'s':''}</span>
+        <i class="ti ti-chevron-down collapse-icon${S.editCollapsed[si]?'':' open'}"></i>
+        <button class="ib danger" onclick="event.stopPropagation();delSec(${si})" style="margin-left:6px;" title="Supprimer"><i class="ti ti-trash"></i></button>
+      </div>
+      <div class="esbody" id="es-${si}" style="${S.editCollapsed[si]?'display:none':''}">
+        <div class="fg" style="margin-bottom:10px;">
+          <div class="flbl">Nom de la section</div>
+          <input class="eiinput" value="${esc(sec.title)}" oninput="upSecTitle(${si},this.value)" style="width:100%">
+        </div>
+        ${sec.items.map((it,ii)=>`
+          <div class="eir">
+            <input class="eiinput" value="${esc(it.label)}" placeholder="Nom du champ" oninput="upItemLbl(${si},${ii},this.value)">
+            <select class="tsel" onchange="upItemType(${si},${ii},this.value)">
+              <option value="text"${it.type==='text'?' selected':''}>Texte</option>
+              <option value="textarea"${it.type==='textarea'?' selected':''}>Zone texte</option>
+              <option value="radio"${it.type==='radio'?' selected':''}>Choix unique</option>
+              <option value="checks"${it.type==='checks'?' selected':''}>Cases à cocher</option>
+            </select>
+            <button class="ib danger" onclick="delItem(${si},${ii})"><i class="ti ti-trash"></i></button>
+          </div>
+          ${(it.type==='radio'||it.type==='checks')?`
+          <div style="margin:0 0 8px;padding:8px;background:var(--surface2);border-radius:var(--radius-sm);">
+            <div class="flbl" style="margin-bottom:4px;">Options (une par ligne)</div>
+            <textarea class="eiinput" style="width:100%;min-height:56px;" oninput="upItemOpts(${si},${ii},this.value)">${(it.options||[]).join('\n')}</textarea>
+          </div>`:''}
+        `).join('')}
+        <button class="addbtn" onclick="addItem(${si})"><i class="ti ti-plus"></i> Ajouter un champ</button>
+      </div>
+    </div>`).join('');
+}
+
+function togEditSec(si){S.editCollapsed[si]=!S.editCollapsed[si];renderEdit();}
+function upSecTitle(si,v){S.tpl[si].title=v;}
+function upItemLbl(si,ii,v){S.tpl[si].items[ii].label=v;}
+function upItemType(si,ii,v){S.tpl[si].items[ii].type=v;if((v==='radio'||v==='checks')&&!S.tpl[si].items[ii].options)S.tpl[si].items[ii].options=['Option 1','Option 2'];renderEdit();}
+function upItemOpts(si,ii,v){S.tpl[si].items[ii].options=v.split('\n').map(s=>s.trim()).filter(Boolean);}
+function delItem(si,ii){S.tpl[si].items.splice(ii,1);renderEdit();}
+function delSec(si){S.tpl.splice(si,1);renderEdit();}
+function addItem(si){S.tpl[si].items.push({id:'i_'+Date.now(),label:'Nouveau champ',type:'text'});S.editCollapsed[si]=false;renderEdit();}
+function addSection(){S.tpl.push({id:'s_'+Date.now(),title:'Nouvelle section',icon:'ti-notes',items:[]});renderEdit();}
+function saveTemplate(){save();showToast('Configuration enregistrée ✓');}
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+function exportPDF(){
+  const p=S.curId?S.patients.find(x=>x.id===S.curId):null;
+  if(S.screen!=='exam'||!p){showToast('Ouvrez un examen pour imprimer');return;}
+  let body=`<html><head><meta charset="utf-8"><title>${p.prenom} ${p.nom} – Examen podologique</title>
+  <style>body{font-family:Arial,sans-serif;font-size:13px;color:#222;padding:22px;max-width:780px;margin:0 auto;}
+  h1{font-size:20px;margin-bottom:4px;color:#111;}
+  .sub{color:#666;font-size:12px;margin-bottom:6px;}
+  h2{font-size:13px;background:#f0faf6;border-left:4px solid #1D9E75;padding:5px 10px;margin:14px 0 7px;border-radius:3px;color:#0F6E56;}
+  .row{margin-bottom:6px;display:flex;gap:8px;align-items:baseline;}
+  .lbl{font-weight:bold;color:#555;font-size:12px;min-width:170px;flex-shrink:0;}
+  .val{color:#222;font-size:13px;}
+  .tag{display:inline-block;background:#e1f5ee;color:#0f6e56;padding:2px 8px;border-radius:12px;font-size:11px;margin:2px 2px 2px 0;}
+  hr{border:none;border-top:1px solid #eee;margin:10px 0;}
+  .footer{font-size:11px;color:#aaa;margin-top:18px;text-align:right;}
+  @media print{@page{margin:1.5cm}button{display:none}}</style></head><body>`;
+  body+=`<h1>${p.prenom||''} ${p.nom||''}</h1>
+  <div class="sub">${p.ddn?'Né(e) le '+p.ddn+(age(p.ddn)?' ('+age(p.ddn)+')':''):''} ${p.tel?'· Tél : '+p.tel:''}</div>
+  ${p.adresse?`<div class="sub">${p.adresse}</div>`:''}
+  <hr>
+  <div class="sub" style="font-style:italic;">Examen podologique du ${new Date().toLocaleDateString('fr-FR')}</div><hr>`;
+  const d=S.examData;
+  S.tpl.forEach(sec=>{
+    const hasData=sec.items.some(it=>{const v=d[it.id];return v&&(!Array.isArray(v)||v.length>0)&&v!=='';});
+    if(!hasData)return;
+    body+=`<h2>${sec.title}</h2>`;
+    sec.items.forEach(it=>{
+      const v=d[it.id];if(!v||v===''||(Array.isArray(v)&&!v.length))return;
+      body+=`<div class="row"><div class="lbl">${it.label}</div><div class="val">`;
+      if(Array.isArray(v))body+=v.map(x=>`<span class="tag">${x}</span>`).join('');
+      else body+=`<span>${v}</span>`;
+      body+=`</div></div>`;
+    });
+  });
+  body+=`<hr><div class="footer">PodoExamen · ${new Date().toLocaleDateString('fr-FR')}</div></body></html>`;
+  const w=window.open('','_blank');
+  if(w){w.document.write(body);w.document.close();w.focus();setTimeout(()=>w.print(),600);}
+  else showToast('Autorisez les popups pour imprimer');
+}
+
+renderPatients();
+</script>
+</body>
+</html>
